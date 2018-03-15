@@ -1,3 +1,36 @@
+<table><tr>
+<td>
+
+[assert_between](#assert_between)<br/>
+[assert_does_not_have](#assert_does_not_have)<br/>
+[assert_eq](#assert_eq)<br/>
+[assert_extends](#assert_extends)<br/>
+[assert_false](#assert_false)<br/>
+[assert_file_does_not_exist](#assert_file_does_not_exist)<br/>
+[assert_file_empty](#assert_file_empty)<br/>
+[assert_file_exists](#assert_file_exists)<br/>
+[assert_file_not_empty](#assert_file_not_empty)<br/>
+[assert_get_set_methods](#assert_get_set_methods)<br/>
+[assert_gt](#assert_gt)<br/>
+[assert_has_signal](#assert_has_signal)<br/>
+
+</td><td>
+
+[assert_has](#assert_has)<br/>
+[assert_lt](#assert_lt)<br/>
+[assert_ne](#assert_ne)<br/>
+[assert_signal_emit_count](#assert_signal_emit_count)<br/>
+[assert_signal_emitted_with_parameters](#assert_signal_emitted_with_parameters)<br/>
+[assert_signal_emitted](#assert_signal_emitted)<br/>
+[assert_signal_not_emitted](#assert_signal_not_emitted)<br/>
+[assert_true](#assert_true)<br/>
+[get_signal_emit_count](#get_signal_emit_count)<br/>
+[get_signal_parameters](#get_signal_parameters)<br/>
+[watch_signals](#watch_signals)<br/>
+
+</td>
+</tr></table>
+
 These methods should be used in tests to make assertions.  These methods are available to anything that inherits from the Test class (`extends "res://addons/gut/test.gd"`).  All sample code listed for the methods can be found here in [test_readme_examples.gd](test/samples/test_readme_examples.gd)
 #### pending(text="")
 flag a test as pending, the optional message is printed in the GUI
