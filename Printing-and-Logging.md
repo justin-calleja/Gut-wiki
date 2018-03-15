@@ -1,6 +1,3 @@
-##  <a name="watch"> Watching tests as they execute
-When running longer tests it can appear as though the program or Gut has hung.  To address this and see the tests as they execute, a short yield was added between tests.  To enable this feature call `set_yield_between_tests(true)` before running your tests or use the "Yield Between Tests" in the Editor.
-
 ##  <a name="output_detail"> Output Detail
 The level of detail that is printed to the screen can be changed using the slider on the dialog or by calling `set_log_level` with one of the following constants defined in Gut
 
