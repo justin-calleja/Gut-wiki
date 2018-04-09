@@ -9,13 +9,14 @@ Extract the zip and place the `gut` directory into your `addons` directory in yo
 1.  Click it.
 1.  Click "Install".  This will kick off the download.
 1.  Click the 2nd "Install" button that appears when the download finishes.  It will be in a little dialog at the bottom of the AssetLib window.
-1.  This part is IMPORTANT.  You only need the `addons/gut` directory.  So make sure that directory is checked then uncheck anything that isn't in the `addons/gut` directory.
 1.  Click the 3rd "Install" button.
 1.  You did it!
 
 ## New Install Setup
-From the menu choose Scene->Project Settings, click the plugins tab and activate Gut.
+### Activate
+1.  From the menu choose Scene->Project Settings, click the plugins tab and activate Gut.
 
+### Setup
 The next few steps cover the suggested configuration.  Feel free to deviate where you see fit.
 
 1.  Create directories to store your tests and test related code
