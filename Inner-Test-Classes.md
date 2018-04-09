@@ -2,7 +2,7 @@ You can define test classes inside a test script that will be treated as test sc
 
 The Inner Classes must also extend `res://addons/gut/test.gd` and their constructor cannot take any parameters.  The Classes will be loaded and ran in the order they are defined _after_ all the tests in the containing script are run.
 
-The order the tests are run are not guaranteed to be in the same order they are defined.  Also the line number for the tests will cannot currently be reported when they fail or are pending.
+The order the tests are run are not guaranteed to be in the same order they are defined.  Also the line number for the tests cannot currently be reported when they fail or are pending.
 
 # Example
 
