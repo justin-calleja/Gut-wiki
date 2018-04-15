@@ -1,4 +1,4 @@
-[__This feature is experimental__]((https://github.com/bitwes/Gut/wiki/About-Experimental)
+[__This feature is experimental__](https://github.com/bitwes/Gut/wiki/About-Experimental)
 
 Tests now have the `stub` keyword.  Stubbing works in conjunction with Doubles.  You can stub any doubled class to return values.  Stubs can be layered to address general and specific situations.
 

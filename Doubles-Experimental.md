@@ -1,4 +1,4 @@
-[__This feature is experimental__]((https://github.com/bitwes/Gut/wiki/About-Experimental)
+[__This feature is experimental__](https://github.com/bitwes/Gut/wiki/About-Experimental)
 
 # What can you double
 * Scripts via `double`.
