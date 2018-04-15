@@ -10,6 +10,17 @@ Here's a couple links to get you started.
 * [Setup](https://github.com/bitwes/Gut/wiki/Setup)
 * [Methods](https://github.com/bitwes/Gut/wiki/Methods)
 
+# Advanced Testing
+* [Using Gut at the command line](https://github.com/bitwes/Gut/wiki/Command-Line)
+* [Inner Test Classes](https://github.com/bitwes/Gut/wiki/Inner-Test-Classes)
+* [Simulate](https://github.com/bitwes/Gut/wiki/Simulate)
+* [Yielding during tests](https://github.com/bitwes/Gut/wiki/Yielding)
+
+# Experimental Features
+* [About Experimental features](https://github.com/bitwes/Gut/wiki/About-Experimental)
+* [Doubles](https://github.com/bitwes/Gut/wiki/Doubles-Experimental)
+* [Stubbing](https://github.com/bitwes/Gut/wiki/Stubbing-Experimental)
+
 # License
 Gut is provided under the MIT license.  [The license is distributed with Gut so it is in the `addons/gut` folder](https://github.com/bitwes/Gut/addons/gut/LICENSE.md).  
 
