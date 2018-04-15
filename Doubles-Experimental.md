@@ -1,3 +1,5 @@
+[__This feature is experimental__]((https://github.com/bitwes/Gut/wiki/About-Experimental)
+
 # What can you double
 * Scripts via `double`.
   * All methods that do not come from built-in Godot classes will be stubbed to do nothing.  

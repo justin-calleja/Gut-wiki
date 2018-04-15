@@ -1,4 +1,4 @@
-# Gut 6.4.0
+# Gut 6.3.0
 GUT (Godot Unit Test) is a utility for writing tests for your Godot Engine game.  It allows you to write tests for your gdscript in gdscript.
 
 ### Godot 3.0 Compatible.
@@ -6,9 +6,9 @@ As of version 6.0.0 Gut is Godot 3.0 compatible.  These changes are not compatib
 
 # Getting Started
 Here's a couple links to get you started.
-* [Install](https://github.com/bitwes/Gut/wiki/Install.md)
-* [Setup](https://github.com/bitwes/Gut/wiki/Setup.md)
-* [Methods](https://github.com/bitwes/Gut/wiki/Methods.md)
+* [Install](https://github.com/bitwes/Gut/wiki/Install)
+* [Setup](https://github.com/bitwes/Gut/wiki/Setup)
+* [Methods](https://github.com/bitwes/Gut/wiki/Methods)
 
 # License
 Gut is provided under the MIT license.  [The license is distributed with Gut so it is in the `addons/gut` folder](https://github.com/bitwes/Gut/addons/gut/LICENSE.md).  
