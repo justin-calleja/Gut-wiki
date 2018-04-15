@@ -6,7 +6,7 @@ These methods should be used in tests to make assertions.  These methods are ava
 
 [assert_between](#assert_between)<br/>
 [assert_does_not_have](#assert_does_not_have)<br/>
-[assert_eq](#assert_eq)<br/>
+[assert_eq (equal)](#assert_eq)<br/>
 [assert_extends](#assert_extends)<br/>
 [assert_false](#assert_false)<br/>
 [assert_file_does_not_exist](#assert_file_does_not_exist)<br/>
@@ -14,15 +14,15 @@ These methods should be used in tests to make assertions.  These methods are ava
 [assert_file_exists](#assert_file_exists)<br/>
 [assert_file_not_empty](#assert_file_not_empty)<br/>
 [assert_get_set_methods](#assert_get_set_methods)<br/>
-[assert_gt](#assert_gt)<br/>
+[assert_gt (greater than)](#assert_gt)<br/>
 [assert_has_method](#assert_has_method)<br/>
 [assert_has_signal](#assert_has_signal)<br/>
 
 </td><td>
 
 [assert_has](#assert_has)<br/>
-[assert_lt](#assert_lt)<br/>
-[assert_ne](#assert_ne)<br/>
+[assert_lt (less than)](#assert_lt)<br/>
+[assert_ne (not equal)](#assert_ne)<br/>
 [assert_signal_emit_count](#assert_signal_emit_count)<br/>
 [assert_signal_emitted_with_parameters](#assert_signal_emitted_with_parameters)<br/>
 [assert_signal_emitted](#assert_signal_emitted)<br/>
@@ -622,7 +622,7 @@ func test_illustrate_yield_to_with_less_time():
 	t.start()
 	yield(yield_to(t, 'the_signal', 1), YIELD)
 	# since we setup t to emit after 5 seconds, this will fail because we
-	# only yielded for 1 second vai yield_to
+	# only yielded for 1 second via yield_to
 	assert_signal_emitted(t, 'the_signal', 'This will fail')
 
 func test_illustrate_yield_to_with_more_time():
@@ -636,7 +636,7 @@ func test_illustrate_yield_to_with_more_time():
 ```
 #### end_test()
 This is a holdover from previous versions.  You should probably use an assert or `pending` to close out a yielded test but you can use this instead if you really really want to.
-```
+``` python
 func test_illustrate_end_test():
 	yield(yield_for(1), YIELD)
 	# we don't have anything to test yet, or at all.  So we

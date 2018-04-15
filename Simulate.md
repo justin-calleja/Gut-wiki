@@ -10,9 +10,6 @@ Example
 extends Node2D
   var a_number = 1
 
-  func _ready():
-    set_process(true)
-
   func _process(delta):
     a_number += 1
 
@@ -22,10 +19,7 @@ extends Node2D
 extends Node2D
   var another_number = 1
 
-  func _ready():
-    set_fixed_process(true)
-
-  func _fixed_process(delta):
+  func _physics_process(delta):
     another_number += 1
 
 # --------------------------------

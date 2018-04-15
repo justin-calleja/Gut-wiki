@@ -4,9 +4,13 @@ The Inner Classes must also extend `res://addons/gut/test.gd` and their construc
 
 The order the tests are run are not guaranteed to be in the same order they are defined.  Also the line number for the tests cannot currently be reported when they fail or are pending.
 
+Inner Classes are parsed out of the script by looking for a classes that start with `'Test'` and also extend `test.gd`.  You can change the name that Gut looks for using the `inner_class_prefix` property.
+
 # Example
 
 ```
+extends "res://addons/gut/test.gd"
+
 func prerun_setup():
 	gut.p('script:  pre-run')
 
