@@ -6,7 +6,7 @@
   * All methods that come from built-in Godot classes will retain their original implementation even if overloaded in your class.
   * `_init` must have 0 parameters or the parameters must have default values.
 
-
+<!-- This is more broke than I thought it was.
 * Packed Scenes via `double_scene` (.tscn files only)
   * All the methods in the scene's script that do not come from built-in Godot classes will be stubbed to do nothing.
   * All methods that come from built-in Godot classes will retain their original implementation even if overloaded in your class.
@@ -17,7 +17,7 @@
 * Scenes with the extension .scn
 * Inner Classes
 * Any class whose `_init` method __requires__ parameters.  If all the parameters for `_init` have default values then it __will__ work.
-
+-->
 # Doubling Scripts
 Script doubles can be created using the `double` method.  This will return an object that can be instanced via `new`.  The doubled object will have all the methods defined in the source object but the implementation will be empty.  The doubled class inherits from the source object so it will have all the same variables and Inner Classes defined in the source object.  The Inner Classes will not be doubled, they will remain "as is".
 
@@ -49,6 +49,7 @@ Then the methods `return_seven`, `return_hello` will be altered for `doubled_ins
 
 Currently you __cannot__ double Inner Classes but should be implemented soon.
 
+<!-- I think this is really broke.  Should have had more samples before release
 # Doubling Packed Scenes
 Doubling packed scenes works very similar to doubling a script and is done using `double_scene`.  A doubled version of your scene is created along with a double of its script.  The doubled scene is altered to load the doubled script instead of the original.  A reference to the newly doubled scene is returned.  You can call `instance` on the returned reference.
 
@@ -79,3 +80,4 @@ func test_illustrate_stubbing_scenes():
   assert_eq(scene.return_hello(), 'world')
   assert_eq(scene.return_hello(), 'goodbye')
 ```
+-->
