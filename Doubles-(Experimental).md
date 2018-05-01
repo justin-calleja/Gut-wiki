@@ -6,6 +6,11 @@
   * All methods that come from built-in Godot classes will retain their original implementation even if overloaded in your class.
   * `_init` must have 0 parameters or the parameters must have default values.
 
+# What you cannot double
+* Scenes.  There was support for this but turns out it is super broke.
+* Inner Classes
+* Any class whose `_init` method __requires__ parameters.  If all the parameters for `_init` have default values then it __will__ work.
+
 <!-- This is more broke than I thought it was.
 * Packed Scenes via `double_scene` (.tscn files only)
   * All the methods in the scene's script that do not come from built-in Godot classes will be stubbed to do nothing.
@@ -13,10 +18,6 @@
   * `_init` must have 0 parameters or the parameters must have default values.
   * The scene's script must be able to be instantiated with `new` without blowing up.
 
-# What you cannot double
-* Scenes with the extension .scn
-* Inner Classes
-* Any class whose `_init` method __requires__ parameters.  If all the parameters for `_init` have default values then it __will__ work.
 -->
 # Doubling Scripts
 Script doubles can be created using the `double` method.  This will return an object that can be instanced via `new`.  The doubled object will have all the methods defined in the source object but the implementation will be empty.  The doubled class inherits from the source object so it will have all the same variables and Inner Classes defined in the source object.  The Inner Classes will not be doubled, they will remain "as is".
