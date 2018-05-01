@@ -7,13 +7,14 @@
   * `_init` must have 0 parameters or the parameters must have default values.
 
 
-* Packed Scenes via `double_scene`
+* Packed Scenes via `double_scene` (.tscn files only)
   * All the methods in the scene's script that do not come from built-in Godot classes will be stubbed to do nothing.
   * All methods that come from built-in Godot classes will retain their original implementation even if overloaded in your class.
   * `_init` must have 0 parameters or the parameters must have default values.
   * The scene's script must be able to be instantiated with `new` without blowing up.
 
 # What you cannot double
+* Scenes with the extension .scn
 * Inner Classes
 * Any class whose `_init` method __requires__ parameters.  If all the parameters for `_init` have default values then it __will__ work.
 
