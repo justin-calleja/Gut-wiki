@@ -5,8 +5,11 @@ These methods should be used in tests to make assertions.  These methods are ava
 <td>
 
 [assert_between](#assert_between)<br/>
+[assert_call_count](#assert_call_count)<br/>
+[assert_called](#assert_called)<br/>
 [assert_does_not_have](#assert_does_not_have)<br/>
 [assert_eq (equal)](#assert_eq)<br/>
+[assert_exports](#assert_exports)<br/>
 [assert_extends](#assert_extends)<br/>
 [assert_false](#assert_false)<br/>
 [assert_file_does_not_exist](#assert_file_does_not_exist)<br/>
@@ -17,12 +20,11 @@ These methods should be used in tests to make assertions.  These methods are ava
 [assert_gt (greater than)](#assert_gt)<br/>
 [assert_has_method](#assert_has_method)<br/>
 [assert_has_signal](#assert_has_signal)<br/>
-
 </td><td>
-
 [assert_has](#assert_has)<br/>
 [assert_lt (less than)](#assert_lt)<br/>
 [assert_ne (not equal)](#assert_ne)<br/>
+[assert_not_called](#assert_not_called)<br/>
 [assert_signal_emit_count](#assert_signal_emit_count)<br/>
 [assert_signal_emitted_with_parameters](#assert_signal_emitted_with_parameters)<br/>
 [assert_signal_emitted](#assert_signal_emitted)<br/>
@@ -500,6 +502,144 @@ func test_assert_extends():
 	assert_extends(BaseClass.new(), SubClass)
 	assert_extends('a', 'b')
 	assert_extends([], Node)
+```
+
+#### <a name="assert_exports">assert_exports(obj, property_name, type)
+Asserts that `obj` exports a property with the name `property_name` and a type of `type`.  The `type` must be one of the various Godot built-in `TYPE_` constants.
+
+``` python
+class ExportClass:
+	export var some_number = 5
+	export(PackedScene) var some_scene
+	var some_variable = 1
+
+func test_assert_exports():
+	var obj = ExportClass.new()
+
+	gut.p('-- passing --')
+	assert_exports(obj, "some_number", TYPE_INT)
+	assert_exports(obj, "some_scene", TYPE_OBJECT)
+
+	gut.p('-- failing --')
+	assert_exports(obj, 'some_number', TYPE_VECTOR2)
+	assert_exports(obj, 'some_scene', TYPE_AABB)
+	assert_exports(obj, 'some_variable', TYPE_INT)
+```
+#### <a name="assert_called">assert_called(inst, method_name, parameters=null)
+This assertion is is one of the ways Gut implements Spies.  It requires that you pass it an instance of a "doubled" object.  An instance created with `double` will record when a method it has is called.  You can then make assertions based on this.  
+
+This assert will check the object to see if a call to the specified method (optionally with parameters) was called over the course of the test.  If it finds a match this test will `pass`, if not it will `fail`.
+
+The `parameters` parameter is an array of values that you expect to have been passed to `method_name`.  If you do not specify any parameters then any call to `method_name` will match and the assert will `pass`.  If you specify parameters then all the parameter values must match.  You must specify all parameters the method takes, even if they have defaults.  Gut is not able (yet?) to fill in default values.
+
+__Methods that are inherited from built-in parent classes are not yet recorded.  For example, you cannot make "called" assertions on methods like `set_position` unless your sub-class specifically implements it.  But since those methods retain their built-in functionality, you can just make normal assertions on them.__
+
+``` python
+# Given the following class located at 'res://test/doubler_test_objects/double_extends_node2d.gd'
+# --------------------
+	extends Node2D
+	var _value = 0
+
+	func get_value():
+	    return _value
+	func set_value(val):
+	    _value = val
+	func has_one_param(one):
+	    pass
+	func has_two_params_one_default(one, two=null):
+	    pass
+	func get_position():
+	    return .get_position()
+# --------------------
+
+# This is how assert_called behaves
+func test_assert_called():
+	var DOUBLE_ME_PATH = 'res://test/doubler_test_objects/double_extends_node2d.gd'
+
+	var doubled = double(DOUBLE_ME_PATH).new()
+	doubled.set_value(4)
+	doubled.set_value(5)
+	doubled.has_two_params_one_default('a')
+	doubled.has_two_params_one_default('a', 'b')
+
+	gut.p('-- passing --')
+	assert_called(doubled, 'set_value')
+	assert_called(doubled, 'set_value', [5])
+	# note the passing of `null` here.  Default parameters must be supplied.
+	assert_called(doubled, 'has_two_params_one_default', ['a', null])
+	assert_called(doubled, 'has_two_params_one_default', ['a', 'b'])
+
+	gut.p('-- failing --')
+	assert_called(doubled, 'get_value')
+	assert_called(doubled, 'set_value', ['nope'])
+	# This fails b/c Gut isn't smart enough to fill in default values for you...
+	# ast least not yet.
+	assert_called(doubled, 'has_two_params_one_default', ['a'])
+	# This fails with a specific message indicating that you have to pass an
+	# instance of a doubled class.
+	assert_called(GDScript.new(), 'some_method')
+```
+#### <a name="asssert_not_called">assert_not_called(inst, method_name, parameters=null)
+This is the inverse of `assert_called` and works the same way except, you know, inversely.  Matches are found based on parameters in the same fashion.  If a matching call is found then this assert will `fail`, if not it will `pass`.
+
+#### <a name="assert_call_count">assert_call_count(inst, method_name, expected_count, parameters=null)
+This assertion is is one of the ways Gut implements Spies.  It requires that you pass it an instance of a "doubled" object.  An instance created with `double` will record when a method it has is called.  You can then make assertions based on this.  
+
+Asserts that a method on a doubled instance has been called a number of times.  If you do not specify any parameters then all calls to the method will be counted.  If you specify parameters, then only those calls that were passed matching values will be counted.
+
+The `parameters` parameter is an array of values that you expect to have been passed to `method_name`.  If you do not specify any parameters then any call to `method_name` will match and the assert will `pass`.  If you specify parameters then all the parameter values must match.  You must specify all parameters the method takes, even if they have defaults.  Gut is not able (yet?) to fill in default values.
+
+__Methods that are inherited from built-in parent classes are not yet recorded.  For example, you cannot make "call" assertions on methods like `set_position` unless your sub-class specifically implements it (you can, they will just always return 0).  Since those methods retain their built-in functionality, you can just make normal assertions on them.__
+
+
+``` python
+# Given the following class located at 'res://test/doubler_test_objects/double_extends_node2d.gd'
+# --------------------
+	extends Node2D
+	var _value = 0
+
+	func get_value():
+	    return _value
+	func set_value(val):
+	    _value = val
+	func has_one_param(one):
+	    pass
+	func has_two_params_one_default(one, two=null):
+	    pass
+	func get_position():
+	    return .get_position()
+# --------------------
+
+# This is how assert_call_count behaves
+func test_assert_call_count():
+	var DOUBLE_ME_PATH = 'res://test/doubler_test_objects/double_extends_node2d.gd'
+
+	var doubled = double(DOUBLE_ME_PATH).new()
+	doubled.set_value(4)
+	doubled.set_value(5)
+	doubled.has_two_params_one_default('a')
+	doubled.has_two_params_one_default('a', 'b')
+	doubled.set_position(Vector2(100, 100))
+
+	gut.p('-- passing --')
+	assert_call_count(doubled, 'set_value', 2)
+	assert_call_count(doubled, 'set_value', 1, [4])
+	# note the passing of `null` here.  Default parameters must be supplied.
+	assert_call_count(doubled, 'has_two_params_one_default', 1, ['a', null])
+	assert_call_count(doubled, 'get_value', 0)
+
+	gut.p('-- failing --')
+	assert_call_count(doubled, 'set_value', 5)
+	assert_call_count(doubled, 'set_value', 2, [4])
+	assert_call_count(doubled, 'get_value', 1)
+	# This fails with a specific message indicating that you have to pass an
+	# instance of a doubled class even though technically the method was called.
+	assert_call_count(GDScript.new(), 'some_method', 0)
+	# This fails b/c double_extends_node2d does not have it's own implementation
+	# of set_position.  The function is supplied by the parent class and these
+	# methods are not yet being recorded.
+	assert_call_count(doubled, 'set_position', 1)
+
 ```
 
 #### <a name="assert_has_method">assert_has_method(obj, method)
