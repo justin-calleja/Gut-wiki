@@ -9,12 +9,7 @@ The `-d` option tells Godot to run in debug mode which is helpful.  The `-s` opt
 _Output from the command line help (-gh)_
 ```
 ---------------------------------------------------------
-This is the command line interface for the unit testing tool Gut.  With this interface
-you can run one or more test scripts from the command line.  In order for the Gut
-options to not clash with any other godot options, each option starts with a "g".  
-Also, any option that requires a value will take the form of "-g<name>=<value>".  
-There cannot be any spaces between the option, the "=", or inside a specified value
-or godot will think you are trying to run a scene.
+This is the command line interface for the unit testing tool Gut.  With this interface you can run one or more test scripts from the command line.  In order for the Gut options to not clash with any other godot options, each option starts with a "g".  Also, any option that requires a value will take the form of "-g<name>=<value>".  There cannot be any spaces between the option, the "=", or inside a specified value or godot will think you are trying to run a scene.
 
 Options
 -------
@@ -30,6 +25,7 @@ Options
   -gutloc           Full path (including name) of the gut script.  Default res://addons/gut/gut.gd
   -gh               Print this help
   -gconfig          A config file that contains configuration information.  Default is res://.gutconfig.json
+  -ginner_class     Only run inner classes that contain this string
 ---------------------------------------------------------
 ```
 
@@ -51,13 +47,14 @@ Make your life easier by creating an alias that includes your most frequent opti
 This alias loads up all the scripts I want from my testing directories and sets some other flags.  With this, if I want to run 'test_one.gd', I just enter `gut -gselect=test_one.gd`.
 
 ### Config file
-To cut down on the amount of arguments you have to pass to gut, you can optionally use a json file to specify some of the values (more option to come later).  By default `gut_cmdln` looks for a config file at `res://.gutconfig.json`.  You can specify a different file using the `-gconfig` option.
+To cut down on the amount of arguments you have to pass to gut, you can optionally use a json file to specify some of the values (more options to come later).  By default `gut_cmdln` looks for a config file at `res://.gutconfig.json`.  You can specify a different file using the `-gconfig` option.
 
 Currently you can specify:
 * `dirs` An array of directories to look for test scripts.
 * `should_exit` True/false flag to indicate if Gut should exit upon completion.
 * `ignore_pause` True/false flag to indicate if Gut should ignore any "pause before teardown" calls.
 * `log` The log level (1-3).
+* `inner_class`  Only run inner classes that contain this string.  It is case sensitive.
 
 #### Example
 ``` json
@@ -65,7 +62,8 @@ Currently you can specify:
   "dirs":["res://test/unit/", "res://test/integration/"],
   "should_exit":true,
   "ignore_pause":true,
-  "log": 3
+  "log": 3,
+	"inner_class":"LikeThis"
 }
 ```
 ### Common Errors
