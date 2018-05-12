@@ -16,7 +16,7 @@ Extract the zip and place the `gut` directory into your `addons` directory in yo
 ### Activate
 1.  From the menu choose Scene->Project Settings, click the plugins tab and activate Gut.
 
-### Setup
+### Setup Your Project to Run Tests
 The next few steps cover the suggested configuration.  Feel free to deviate where you see fit.
 
 1.  Create directories to store your tests and test related code
@@ -33,3 +33,7 @@ The next few steps cover the suggested configuration.  Feel free to deviate wher
 	* In the `Directory2` setting enter `res://test/integration`
 
 That's it.  The next step is to make some tests.
+
+# Where to next?
+* [Creating Tests](https://github.com/bitwes/Gut/wiki/CreatingTests.md)<br/>
+* [Gut Settings and Methods](https://github.com/bitwes/Gut/wiki/Gut-Settings-And-Methods.md)

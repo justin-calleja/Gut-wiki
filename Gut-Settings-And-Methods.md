@@ -11,60 +11,9 @@ The following settings are accessible in the Editor under "Script Variables"
 * <b>Test Prefix</b>:  The prefix used on all test functions.  This prefixed will be used by Gut to find tests inside your test scripts.
 * <b>File Prefix</b>:  The prefix used on all test files.  This is used in conjunction with the Directory settings to find tests.
 * <b>File Extension</b>:  This is the suffix it will use to find test files.  
+* <b>Inner Class Prefix</b>:  This is the prefix that Gut will use to find Inner Classes that are test scripts.
+* <b>Inner Class Name</b>:  Only run Inner Classes that have names that contain the specified string.  
 * <b>Directory(1-6)</b>:  The path to the directories where your test scripts are located.  Subdirectories are not included.  If you need more than six directories you can use the `add_directory` method to add more.
-
-# <a name="creating_tests"> Making Tests
-
-## Sample for Setup
-Here's a sample test script.  Copy the contents into the file `res://test/unit/test_example.gd` then run your scene.  If everything is setup correctly then you'll see some passing and failing tests.  If you don't have "Run on Load" checked in the editor, you'll have to hit the "Run" button on the dialog window.
-
-``` python
-extends "res://addons/gut/test.gd"
-func setup():
-	gut.p("ran setup", 2)
-
-func teardown():
-	gut.p("ran teardown", 2)
-
-func prerun_setup():
-	gut.p("ran run setup", 2)
-
-func postrun_teardown():
-	gut.p("ran run teardown", 2)
-
-func test_assert_eq_number_not_equal():
-	assert_eq(1, 2, "Should fail.  1 != 2")
-
-func test_assert_eq_number_equal():
-	assert_eq('asdf', 'asdf', "Should pass")
-
-func test_assert_true_with_true():
-	assert_true(true, "Should pass, true is true")
-
-func test_assert_true_with_false():
-	assert_true(false, "Should fail")
-
-func test_something_else():
-	assert_true(false, "didn't work")
-
-```
-
-## Creating tests
-All test scripts must extend the test class.
-* `extends "res://addons/gut/test.gd"`
-
-Each test script has optional setup and teardown methods that are called at various stages of execution.  They take no parameters.
- * `setup()`:  Ran before each test
- * `teardown()`:  Ran after each test
- * `prerun_setup()`:  Ran before any test is run
- * `postrun_teardown()`:  Ran after all tests have run
-
-All tests in the test script must start with the prefix `test_` in order for them to be run.  The methods must not have any parameters.
-* `func test_this_is_only_a_test():`
-
-Each test should perform at least one assert or call `pending` to indicate the test hasn't been implemented yet.
-
-
 
 ## <a name="gut_methods"> Methods for Configuring the Execution of Tests
 These methods would be used inside the scene you created at `res://test/tests.tcn`.  These methods can be called against the Gut node you created.  Most of these are not necessary anymore since you can configure Gut in the editor but they are here if you want to use them.  Simply put `get_node('Gut').` in front of any of them.  

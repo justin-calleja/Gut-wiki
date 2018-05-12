@@ -20,6 +20,7 @@ Here's a couple links to get you started.
 * [About Experimental features](https://github.com/bitwes/Gut/wiki/About-Experimental)
 * [Doubles](https://github.com/bitwes/Gut/wiki/Doubles-Experimental)
 * [Stubbing](https://github.com/bitwes/Gut/wiki/Stubbing-Experimental)
+* [Spies](https://github.com/bitwes/Gut/wiki/Spies-Experimental)
 
 # License
 Gut is provided under the MIT license.  [The license is distributed with Gut so it is in the `addons/gut` folder](https://github.com/bitwes/Gut/addons/gut/LICENSE.md).  

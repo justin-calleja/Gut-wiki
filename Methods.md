@@ -525,6 +525,7 @@ func test_assert_exports():
 	assert_exports(obj, 'some_scene', TYPE_AABB)
 	assert_exports(obj, 'some_variable', TYPE_INT)
 ```
+
 #### <a name="assert_called">assert_called(inst, method_name, parameters=null)
 This assertion is is one of the ways Gut implements Spies.  It requires that you pass it an instance of a "doubled" object.  An instance created with `double` will record when a method it has is called.  You can then make assertions based on this.  
 
