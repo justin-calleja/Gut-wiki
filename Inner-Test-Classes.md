@@ -1,13 +1,15 @@
 You can define test classes inside a test script that will be treated as test scripts themselves.  This allows you to create different contexts for your tests in a single script.  These Inner Classes have thier own `prerun_setup`, `setup`, `teardown`, and `postrun_teardown` methods that will be called.  Only the methods defined in the class are used, the methods defined in the containing script will not be called.
 
-The Inner Classes must also extend `res://addons/gut/test.gd` and their constructor cannot take any parameters.  The Classes will be loaded and ran in the order they are defined _after_ all the tests in the containing script are run.
+The Inner Classes must also extend `res://addons/gut/test.gd` and their constructor cannot take any parameters.  The Classes will be loaded and ran in the order they are defined _after_ all the tests in the containing script are run.  If the script does not contain any tests then only the Inner Classes will be listed in the output.
 
-The order the tests are run are not guaranteed to be in the same order they are defined.  Also the line number for the tests cannot currently be reported when they fail or are pending.
+The order the tests are run are not guaranteed to be in the same order they are defined (I don't know why yet).  Also the line number for the tests cannot currently be reported when they fail or are pending (they aren't parsed the same way as normal script tests, I'll probably add this in later since it bugs me).
 
 Inner Classes are parsed out of the script by looking for a classes that start with `'Test'` and also extend `test.gd`.  You can change the name that Gut looks for using the `inner_class_prefix` property.
 
-# Example
+There are options for the command line and editor node to specify an Inner Test Class name to run.  This allows you to easily run a subset of tests in a script as you develop a feature.  See [Gut Settings and Methods](https://github.com/bitwes/Gut/wiki/Gut-Settings-And-Methods.md) and  [Using Gut at the command line](https://github.com/bitwes/Gut/wiki/Command-Line) for more information.
 
+# Example
+Given the following test script defined at `res://test/unit/some_example.gd`
 ```
 extends "res://addons/gut/test.gd"
 
@@ -46,18 +48,23 @@ class TestClass1:
 
 	func test_context1_two():
 		pending()
-
-  ```
-This will generate the follwoing output
 ```
+
+Gut will generate this following when running the test script.
+
+```
+/-----------------------------------------
+Running Script res://test/unit/some_sample.gd
+-----------------------------------------/
 script:  pre-run
 * test_something
     script:  setup
     PASSED:
     script:  teardown
-/----
-Testing Inner Class TestClass1
-----/
+
+/-----------------------------------------
+Running Class [TestClass1] in res://test/unit/some_sample.gd
+-----------------------------------------/
 TestClass1:  pre-run
 * test_context1_two
     TestClass1:  setup

@@ -25,6 +25,9 @@ As of version 6.0.0 Gut is Godot 3.0 compatible.  These changes are not compatib
 # License
 Gut is provided under the MIT license.  [The license is distributed with Gut so it is in the `addons/gut` folder](https://github.com/bitwes/Gut/blob/master/addons/gut/LICENSE.md).
 
+# Contributing
+[Contributing](https://github.com/bitwes/Gut/wiki/Contributing)
+
 # Who do I talk to?
 You can talk to me, Butch Wesley
 

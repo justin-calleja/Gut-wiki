@@ -1,7 +1,7 @@
 
 # <a name="creating_tests"> Making Tests
 
-## Sample for Setup
+# Sample for Setup
 Here's a sample test script.  Copy the contents into the file `res://test/unit/test_example.gd` then run your scene.  If everything is setup correctly then you'll see some passing and failing tests.  If you don't have "Run on Load" checked in the editor, you'll have to hit the "Run" button on the dialog window.
 
 ``` python
@@ -32,10 +32,9 @@ func test_assert_true_with_false():
 
 func test_something_else():
 	assert_true(false, "didn't work")
-
 ```
 
-## Creating tests
+# Creating tests
 All test scripts must extend the test class.
 * `extends "res://addons/gut/test.gd"`
 
@@ -50,6 +49,39 @@ All tests in the test script must start with the prefix `test_` in order for the
 
 Each test should perform at least one assert or call `pending` to indicate the test hasn't been implemented yet.
 
+A list of all `asserts` and other helper functions available in your test script can be found in [Methods](https://github.com/bitwes/Gut/wiki/Methods).  There's also some helpful methods in the Gut object itself.  They are listed in [Gut Settings and Methods](https://github.com/bitwes/Gut/wiki/Gut-Settings-And-Methods.md)
+
+# Inner Test Classes
+You can group tests together using Inner Classes. These classes must start with the prefix `'Test'` (this is configurable) and must also extend `res://addons/gut/test.gd`.  You cannot create Inner Test Classes inside Inner Test Classes.  More info can be found at [Inner Test Classes](https://github.com/bitwes/Gut/wiki/Inner-Test-Classes.md).
+
+## Simple Example
+```
+extends 'res://addons/gut/test.gd'
+
+class TestFeatureA:
+	extends 'res://addons/gut/test.gd'
+
+	var Obj = load('res://scripts/object.gd')
+	var _obj = null
+
+	func setup():
+		_obj = Obj.new()
+
+	func test_something():
+		assert_true(_obj.is_something_cool(), 'Should be cool.')
+
+class TestFeatureB:
+	extends 'res://addons/gut/test.gd'
+
+	var Obj = load('res://scripts/object.gd')
+	var _obj = null
+
+	func setup():
+		_obj = Obj.new()
+
+	func test_foobar():
+		assert_eq(_obj.foo(), 'bar', 'Foo should return bar')
+```
 # Where to next?
 * [Gut Settings and Methods](https://github.com/bitwes/Gut/wiki/Gut-Settings-And-Methods.md)
 * [Inner Test Classes](https://github.com/bitwes/Gut/wiki/Inner-Test-Classes.md)
