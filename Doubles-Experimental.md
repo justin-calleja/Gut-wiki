@@ -4,7 +4,7 @@ Doubles are useful when you want to test an object that requires another object 
 
 The `double` function creates a new script that has empty overloads for all methods defined in the class.  You can use the object returned from `double` to create instances of the "doubled" script.  Once you have a "doubled" object you can stub return values via `stub` and make assertions about which methods have been called on the instance using `assert_called`, `assert_not_called`, and `assert_call_count`.
 
-See the [stubbing](https://github.com/bitwes/Gut/wiki/Stubbing-(Experimental)) and [spy](https://github.com/bitwes/Gut/wiki/Spies-(Experimental)) pages for more information.
+See the [stubbing](https://github.com/bitwes/Gut/wiki/Stubbing-Experimental) and [spy](https://github.com/bitwes/Gut/wiki/Spies-Experimental) pages for more information.
 
 # There is one <u>VERY</u> important caveat.  
 Only methods that have been defined in the script you pass in OR methods that have been defined in parent scripts get the empty implementation in the double.  Methods defined in any built-in Godot class do not get overridden __unless__ the script (or parent script(s)) have them implemented.
@@ -92,5 +92,5 @@ Currently you __cannot__ double Inner Classes but should be implemented soon.
 Doubling packed scenes works very similar to doubling a script and is done using `double_scene`.  A doubled version of your scene is created along with a double of its script.  The doubled scene is altered to load the doubled script instead of the original.  A reference to the newly doubled scene is returned.  You can call `instance` on the returned reference.
 
 # Where to next?
-* [Stubbing](https://github.com/bitwes/Gut/wiki/Stubbing-(Experimental))
-* [Spies](https://github.com/bitwes/Gut/wiki/Spies-(Experimental))
+* [Stubbing](https://github.com/bitwes/Gut/wiki/Stubbing-Experimental)
+* [Spies](https://github.com/bitwes/Gut/wiki/Spies-Experimental)

@@ -18,9 +18,9 @@ As of version 6.0.0 Gut is Godot 3.0 compatible.  These changes are not compatib
 
 # Experimental Features
 * [About Experimental features](https://github.com/bitwes/Gut/wiki/About-Experimental)
-* [Doubles](https://github.com/bitwes/Gut/wiki/Doubles-(Experimental))
-* [Stubbing](https://github.com/bitwes/Gut/wiki/Stubbing-(Experimental))
-* [Spies](https://github.com/bitwes/Gut/wiki/Spies-(Experimental))
+* [Doubles](https://github.com/bitwes/Gut/wiki/Doubles-Experimental)
+* [Stubbing](https://github.com/bitwes/Gut/wiki/Stubbing-Experimental)
+* [Spies](https://github.com/bitwes/Gut/wiki/Spies-Experimental)
 
 # License
 Gut is provided under the MIT license.  [The license is distributed with Gut so it is in the `addons/gut` folder](https://github.com/bitwes/Gut/blob/master/addons/gut/LICENSE.md).
