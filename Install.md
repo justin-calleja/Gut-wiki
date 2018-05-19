@@ -35,5 +35,5 @@ The next few steps cover the suggested configuration.  Feel free to deviate wher
 That's it.  The next step is to make some tests.
 
 # Where to next?
-* [Creating Tests](https://github.com/bitwes/Gut/wiki/CreatingTests.md)<br/>
-* [Gut Settings and Methods](https://github.com/bitwes/Gut/wiki/Gut-Settings-And-Methods.md)
+* [Creating Tests](https://github.com/bitwes/Gut/wiki/Creating-Tests)<br/>
+* [Gut Settings and Methods](https://github.com/bitwes/Gut/wiki/Gut-Settings-And-Methods)
