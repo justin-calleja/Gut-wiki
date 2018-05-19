@@ -28,6 +28,7 @@ Options
   -gh               Print this help
   -gconfig          A config file that contains configuration information.  Default is res://.gutconfig.json
   -ginner_class     Only run inner classes that contain this string
+  -gopacity         Set opacity of test runner window. Use range 0 - 100. 0 = transparent, 100 = opaque.
 ---------------------------------------------------------
 ```
 
@@ -50,6 +51,7 @@ Currently you can specify:
 * `ignore_pause` True/false flag to indicate if Gut should ignore any "pause before teardown" calls.
 * `log` The log level (1-3).
 * `inner_class`  Only run inner classes that contain this string.  It is case sensitive.
+* `opacity` Sets the opacity of the GUI.
 
 #### Example
 ``` json
