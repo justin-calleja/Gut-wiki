@@ -20,7 +20,9 @@ These methods should be used in tests to make assertions.  These methods are ava
 [assert_gt (greater than)](#assert_gt)<br/>
 [assert_has_method](#assert_has_method)<br/>
 [assert_has_signal](#assert_has_signal)<br/>
+
 </td><td>
+
 [assert_has](#assert_has)<br/>
 [assert_lt (less than)](#assert_lt)<br/>
 [assert_ne (not equal)](#assert_ne)<br/>
