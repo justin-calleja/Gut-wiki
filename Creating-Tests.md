@@ -83,9 +83,9 @@ class TestFeatureB:
 		assert_eq(_obj.foo(), 'bar', 'Foo should return bar')
 ```
 # Where to next?
-* [Gut Settings and Methods](https://github.com/bitwes/Gut/wiki/Gut-Settings-And-Methods.md)
-* [Inner Test Classes](https://github.com/bitwes/Gut/wiki/Inner-Test-Classes.md)
-* [Methods](https://github.com/bitwes/Gut/wiki/Methods.md)
-* [Command Line](https://github.com/bitwes/Gut/wiki/Command-Line.md)
+* [Gut Settings and Methods](https://github.com/bitwes/Gut/wiki/Gut-Settings-And-Methods)
+* [Inner Test Classes](https://github.com/bitwes/Gut/wiki/Inner-Test-Classes)
+* [Methods](https://github.com/bitwes/Gut/wiki/Methods)
+* [Command Line](https://github.com/bitwes/Gut/wiki/Command-Line)
 * [Simulate](https://github.com/bitwes/Gut/wiki/Simulate)
 * [Yielding during tests](https://github.com/bitwes/Gut/wiki/Yielding)

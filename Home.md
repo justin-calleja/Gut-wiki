@@ -6,7 +6,7 @@ As of version 6.0.0 Gut is Godot 3.0 compatible.  These changes are not compatib
 
 # Getting Started
 * [Install](https://github.com/bitwes/Gut/wiki/Install)
-* [Gut Settings and Methods](https://github.com/bitwes/Gut/wiki/Gut-Settings-And-Methods.md)
+* [Gut Settings and Methods](https://github.com/bitwes/Gut/wiki/Gut-Settings-And-Methods)
 * [Creating Tests](https://github.com/bitwes/Gut/wiki/Creating-Tests)
 * [Methods](https://github.com/bitwes/Gut/wiki/Methods)
 
