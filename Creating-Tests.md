@@ -52,7 +52,7 @@ Each test should perform at least one assert or call `pending` to indicate the t
 A list of all `asserts` and other helper functions available in your test script can be found in [Methods](https://github.com/bitwes/Gut/wiki/Methods).  There's also some helpful methods in the Gut object itself.  They are listed in [Gut Settings and Methods](https://github.com/bitwes/Gut/wiki/Gut-Settings-And-Methods)
 
 # Inner Test Classes
-You can group tests together using Inner Classes. These classes must start with the prefix `'Test'` (this is configurable) and must also extend `res://addons/gut/test.gd`.  You cannot create Inner Test Classes inside Inner Test Classes.  More info can be found at [Inner Test Classes](https://github.com/bitwes/Gut/wiki/Inner-Test-Classes.md).
+You can group tests together using Inner Classes. These classes must start with the prefix `'Test'` (this is configurable) and must also extend `res://addons/gut/test.gd`.  You cannot create Inner Test Classes inside Inner Test Classes.  More info can be found at [Inner Test Classes](https://github.com/bitwes/Gut/wiki/Inner-Test-Classes).
 
 ## Simple Example
 ```
