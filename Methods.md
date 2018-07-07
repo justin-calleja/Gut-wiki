@@ -1,9 +1,11 @@
 These methods should be used in tests to make assertions.  These methods are available to anything that inherits from the Test class (`extends "res://addons/gut/test.gd"`).  All sample code listed for the methods can be found here in [test_readme_examples.gd](gut_tests_and_examples/test/samples/test_readme_examples.gd)
 
-# Method Links
+# Methods (alphabetical)
 <table><tr>
 <td>
 
+[assert_almost_eq](#assert_almost_eq)<br/>
+[assert_almost_ne](#assert_almost_ne)<br/>
 [assert_between](#assert_between)<br/>
 [assert_call_count](#assert_call_count)<br/>
 [assert_called](#assert_called)<br/>
@@ -20,10 +22,11 @@ These methods should be used in tests to make assertions.  These methods are ava
 [assert_gt (greater than)](#assert_gt)<br/>
 [assert_has_method](#assert_has_method)<br/>
 [assert_has_signal](#assert_has_signal)<br/>
+[assert_has](#assert_has)<br/>
 
 </td><td>
 
-[assert_has](#assert_has)<br/>
+
 [assert_lt (less than)](#assert_lt)<br/>
 [assert_ne (not equal)](#assert_ne)<br/>
 [assert_not_called](#assert_not_called)<br/>
@@ -35,14 +38,19 @@ These methods should be used in tests to make assertions.  These methods are ava
 [assert_string_ends_with](#assert_string_ends_with)<br/>
 [assert_string_starts_with](#assert_string_starts_with)<br/>
 [assert_true](#assert_true)<br/>
+[end_test](#end_test)<br/>
 [get_signal_emit_count](#get_signal_emit_count)<br/>
 [get_signal_parameters](#get_signal_parameters)<br/>
+[pending](#pending)<br/>
 [watch_signals](#watch_signals)<br/>
+[yield_for](#yield_for)<br/>
+[yield_to](#yield_to)<br/>
+
 
 </td>
 </tr></table>
 
-#### pending(text="")
+#### <a name="pending"> pending(text="")
 flag a test as pending, the optional message is printed in the GUI
 ``` python
 pending('This test is not implemented yet')
@@ -146,6 +154,43 @@ assert_between(2.25, 2, 4.0) # PASS
 gut.p('-- failing --')
 assert_between('a', 'b', 'c') # FAIL
 assert_between(1, 5, 10) # FAIL
+```
+#### <a name="assert_almost_eq"> assert_almost_eq(got, expected, error_interval, text='')
+Asserts that `got` is within the range of `expected` +/- `error_interval`.  The upper and lower bounds are included in the check.  Verified to work with integers, floats, and Vector2.  Should work with anything that can be added/subtracted.
+
+``` python
+gut.p('-- passing --')
+assert_almost_eq(0, 1, 1, '0 within range of 1 +/- 1') # PASS
+assert_almost_eq(2, 1, 1, '2 within range of 1 +/- 1') # PASS
+
+assert_almost_eq(1.2, 1.0, .5, '1.2 within range of 1 +/- .5') # PASS
+assert_almost_eq(.5, 1.0, .5, '.5 within range of 1 +/- .5') # PASS
+
+assert_almost_eq(Vector2(.5, 1.5), Vector2(1.0, 1.0), Vector2(.5, .5))  # PASS
+
+gut.p('-- failing --')
+assert_almost_eq(1, 3, 1, '1 outside range of 3 +/- 1') # FAIL
+assert_almost_eq(2.6, 3.0, .2, '2.6 outside range of 3 +/- .2') # FAIL
+
+assert_almost_eq(Vector2(.5, 1.5), Vector2(1.0, 1.0), Vector2(.25, .25))  # PASS
+```
+#### <a name="assert_almost_ne"> assert_almost_ne(got, expected, error_interval, text='')
+This is the inverse of `assert_almost_eq`.  This will pass if `got` is outside the range of `expected` +/- `error_interval`.
+``` python
+gut.p('-- passing --')
+assert_almost_ne(1, 3, 1, '1 outside range of 3 +/- 1') # PASS
+assert_almost_ne(2.6, 3.0, .2, '2.6 outside range of 3 +/- .2') # PASS
+
+assert_almost_ne(Vector2(.5, 1.5), Vector2(1.0, 1.0), Vector2(.25, .25))  # PASS
+
+gut.p('-- failing --')
+assert_almost_ne(0, 1, 1, '0 within range of 1 +/- 1') # FAIL
+assert_almost_ne(2, 1, 1, '2 within range of 1 +/- 1') # FAIL
+
+assert_almost_ne(1.2, 1.0, .5, '1.2 within range of 1 +/- .5') # FAIL
+assert_almost_ne(.5, 1.0, .5, '.5 within range of 1 +/- .5') # FAIL
+
+assert_almost_ne(Vector2(.5, 1.5), Vector2(1.0, 1.0), Vector2(.5, .5))  # FAIL
 ```
 #### <a name="assert_has"> assert_has(obj, element, text='')
 Asserts that the object passed in "has" the element.  This works with any object that has a `has` method.
@@ -711,7 +756,7 @@ Print info to the GUI and console (if enabled).  You can see examples if this in
 #### gut.pause_before_teardown()
 This method will cause Gut to pause before it moves on to the next test.  This is useful for debugging, for instance if you want to investigate the screen or anything else after a test has finished executing.  See also `set_ignore_pause_before_teardown`
 
-#### yield_for(time_in_seconds)
+#### <a name="yield_for"> yield_for(time_in_seconds)
 This simplifies the code needed to pause the test execution for a number of seconds so the thing that you are testing can run its course in real time.  There are more details in the Yielding section.  It is designed to be used with the `yield` built in.  The following example will pause your test execution (and only the test execution) for 2 seconds before continuing.  You must call an assert or `pending` or `end_test()` after a yield or the test will never stop running.
 ``` python
 class MovingNode:
@@ -735,7 +780,7 @@ func test_illustrate_yield():
 	assert_between(moving_node.get_pos().x, 3.9, 4, 'it should move almost 4 whatevers at speed 2')
 ```
 
-#### yield_to(object, signal_name, max_time)
+#### <a name="yield_to"> yield_to(object, signal_name, max_time)
 `yield_to` allows you to yield to a signal just like `yield` but for a maximum amount of time.  This keeps tests moving along when signals are not emitted.  Just like with any test that has a yield in it, you must call an assert or `pending` or `end_test()` after a yield or the test will never stop running.
 
 As a bonus, `yield_to` does an implicit call to `watch_signals` so you can easily make signal based assertions afterwards.
@@ -777,7 +822,7 @@ func test_illustrate_yield_to_with_more_time():
 	# will pass
 	assert_signal_emitted(t, 'the_signal', 'This will pass')
 ```
-#### end_test()
+#### <a name="end_test"> end_test()
 This is a holdover from previous versions.  You should probably use an assert or `pending` to close out a yielded test but you can use this instead if you really really want to.
 ``` python
 func test_illustrate_end_test():
