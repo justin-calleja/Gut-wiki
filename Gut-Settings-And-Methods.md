@@ -2,6 +2,7 @@
 The following settings are accessible in the Editor under "Script Variables"
 
 * <b>Run On Load</b>:  Flag to indicate if Gut should start running tests when loaded.
+* <b>Should Maximize</b>:  Flag to maximize the Gut window upon launch.
 * <b>Select Script</b>:  Select the named script in the drop down.  When this is set and "Run On Load" is true, only this script will be run.
 * <b>Tests Like</b>:  Only tests that contain the set text will be run initially.
 * <b>Should Print To Console</b>:  Print output to the console as well as to Gut.
@@ -36,6 +37,7 @@ These methods would be used inside the scene you created at `res://test/tests.tc
 * __**__`set_yield_between_tests(should)` will pause briefly between every 5 tests so that you can see progress in the GUI.  If this is left out, it  can seem like the program has hung when running longer test sets.
 * __**__`get/set_log_level(level)` see section on log level for list of values.
 * __**__`disable_strict_datatype_checks(true)` disables strict datatype checks.  See section on "Strict type checking" before disabling.
+* __**__ `maximize()` maximizes the gut window.
 
 # <a name="extras"> Extras
 

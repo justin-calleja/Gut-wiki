@@ -19,6 +19,7 @@ Options
   -gdir             Comma delimited list of directories to add tests from.
   -gprefix          Prefix used to find tests when specifying -gdir.  Default "test_"
   -gsuffix          Suffix used to find tests when specifying -gdir.  Default ".gd"
+  -gmaximize        Maximizes test runner window to fit the viewport.
   -gexit            Exit after running tests.  If not specified you have to manually close the window.
   -glog             Log level.  Default 1
   -gignore_pause    Ignores any calls to gut.pause_before_teardown.
@@ -29,6 +30,7 @@ Options
   -gconfig          A config file that contains configuration information.  Default is res://.gutconfig.json
   -ginner_class     Only run inner classes that contain this string
   -gopacity         Set opacity of test runner window. Use range 0 - 100. 0 = transparent, 100 = opaque.
+  -gpo              Print option values from all sources and the value used, then quit.
 ---------------------------------------------------------
 ```
 
