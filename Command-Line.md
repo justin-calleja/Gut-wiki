@@ -54,12 +54,14 @@ Currently you can specify:
 * `log` The log level (1-3).
 * `inner_class`  Only run inner classes that contain this string.  It is case sensitive.
 * `opacity` Sets the opacity of the GUI.
+* `should_maximize` Maximize the Gut window.
 
 #### Example
 ``` json
 {
   "dirs":["res://test/unit/", "res://test/integration/"],
   "should_exit":true,
+	"should_maximize":false,
   "ignore_pause":true,
   "log": 3,
   "inner_class":"LikeThis"
