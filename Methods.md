@@ -4,6 +4,7 @@ These methods should be used in tests to make assertions.  These methods are ava
 <table><tr>
 <td>
 
+[assert_accessors](#assert_accessors)<br/>
 [assert_almost_eq](#assert_almost_eq)<br/>
 [assert_almost_ne](#assert_almost_ne)<br/>
 [assert_between](#assert_between)<br/>
@@ -12,20 +13,18 @@ These methods should be used in tests to make assertions.  These methods are ava
 [assert_does_not_have](#assert_does_not_have)<br/>
 [assert_eq (equal)](#assert_eq)<br/>
 [assert_exports](#assert_exports)<br/>
-[assert_is](#assert_is)<br/>
 [assert_false](#assert_false)<br/>
 [assert_file_does_not_exist](#assert_file_does_not_exist)<br/>
 [assert_file_empty](#assert_file_empty)<br/>
 [assert_file_exists](#assert_file_exists)<br/>
 [assert_file_not_empty](#assert_file_not_empty)<br/>
-[assert_accessors](#assert_accessors)<br/>
 [assert_gt (greater than)](#assert_gt)<br/>
 [assert_has_method](#assert_has_method)<br/>
 [assert_has_signal](#assert_has_signal)<br/>
 [assert_has](#assert_has)<br/>
+[assert_is](#assert_is)<br/>
 
 </td><td>
-
 
 [assert_lt (less than)](#assert_lt)<br/>
 [assert_ne (not equal)](#assert_ne)<br/>
@@ -634,7 +633,7 @@ This is the inverse of `assert_called` and works the same way except, you know, 
 #### <a name="assert_call_count">assert_call_count(inst, method_name, expected_count, parameters=null)
 This assertion is is one of the ways Gut implements Spies.  It requires that you pass it an instance of a "doubled" object.  An instance created with `double` will record when a method it has is called.  You can then make assertions based on this.  
 
-Asserts that a method on a doubled instance has been called a number of times.  If you do not specify any parameters then all calls to the method will be counted.  If you specify parameters, then only those calls that were passed matching values will be counted.
+This asserts that a method on a doubled instance has been called a number of times.  If you do not specify any parameters then all calls to the method will be counted.  If you specify parameters, then only those calls that were passed matching values will be counted.
 
 The `parameters` parameter is an array of values that you expect to have been passed to `method_name`.  If you do not specify any parameters then any call to `method_name` will match and the assert will `pass`.  If you specify parameters then all the parameter values must match.  You must specify all parameters the method takes, even if they have defaults.  Gut is not able (yet?) to fill in default values.
 
