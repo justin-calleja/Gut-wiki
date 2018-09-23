@@ -38,11 +38,13 @@ func test_something_else():
 All test scripts must extend the test class.
 * `extends "res://addons/gut/test.gd"`
 
-Each test script has optional setup and teardown methods that are called at various stages of execution.  They take no parameters.
- * `before_each()`:  Ran before each test
- * `after_each()`:  Ran after each test
- * `before_all()`:  Ran before any test is run
- * `after_all()`:  Ran after all tests have run
+Each test script has optional setup and teardown methods that you can provide abn implementation for.  These are called by Gut at various stages of execution.  They take no parameters.
+ * `before_each()`:  Ran before each test (__formerly known as `setup`__)
+ * `after_each()`:  Ran after each test (__formerly known as `teardown`__)
+ * `before_all()`:  Ran before any test is run (__formerly known as `prerun_setup`__)
+ * `after_all()`:  Ran after all tests have run (__formerly known as `postrun_teardown`__)
+
+_* The old names for these methods still work but have been changed to make them more accessible.  Please see the 6.6.0 section of [CHANGES.md](https://github.com/bitwes/Gut/blob/master/CHANGES.md) for more information and some advice on refactoring existing tests._<br/>
 
 All tests in the test script must start with the prefix `test_` in order for them to be run.  The methods must not have any parameters.
 * `func test_this_is_only_a_test():`
