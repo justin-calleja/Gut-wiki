@@ -12,13 +12,13 @@ These methods should be used in tests to make assertions.  These methods are ava
 [assert_does_not_have](#assert_does_not_have)<br/>
 [assert_eq (equal)](#assert_eq)<br/>
 [assert_exports](#assert_exports)<br/>
-[assert_extends](#assert_extends)<br/>
+[assert_is](#assert_is)<br/>
 [assert_false](#assert_false)<br/>
 [assert_file_does_not_exist](#assert_file_does_not_exist)<br/>
 [assert_file_empty](#assert_file_empty)<br/>
 [assert_file_exists](#assert_file_exists)<br/>
 [assert_file_not_empty](#assert_file_not_empty)<br/>
-[assert_get_set_methods](#assert_get_set_methods)<br/>
+[assert_accessors](#assert_accessors)<br/>
 [assert_gt (greater than)](#assert_gt)<br/>
 [assert_has_method](#assert_has_method)<br/>
 [assert_has_signal](#assert_has_signal)<br/>
@@ -526,29 +526,30 @@ func test_assert_file_not_empty():
 	gut.p('-- failing --')
 	assert_file_not_empty('user://some_test_file') # FAIL
 ```
-#### <a name="assert_extends"> assert_extends(object, a_class, text)
+#### <a name="assert_is"> assert_is(object, a_class, text)
+__Formerly known as `assert_extends`__<br/>
 Asserts that "object" extends "a_class".  object must be an instance of an object.  It cannot be any of the built in classes like Array or Int or Float.  a_class must be a class, it can be loaded via load, a GDNative class such as Node or Label or anything else.
 
 ``` python
-func test_assert_extends():
+func test_assert_is():
 	gut.p('-- passing --')
-	assert_extends(Node2D.new(), Node2D)
-	assert_extends(Label.new(), CanvasItem)
-	assert_extends(SubClass.new(), BaseClass)
+	assert_is(Node2D.new(), Node2D)
+	assert_is(Label.new(), CanvasItem)
+	assert_is(SubClass.new(), BaseClass)
 	# Since this is a test script that inherits from test.gd, so
 	# this passes.  It's not obvious w/o seeing the whole script
 	# so I'm telling you.  You'll just have to trust me.
-	assert_extends(self, load('res://addons/gut/test.gd'))
+	assert_is(self, load('res://addons/gut/test.gd'))
 
 	var Gut = load('res://addons/gut/gut.gd')
 	var a_gut = Gut.new()
-	assert_extends(a_gut, Gut)
+	assert_is(a_gut, Gut)
 
 	gut.p('-- failing --')
-	assert_extends(Node2D.new(), Node2D.new())
-	assert_extends(BaseClass.new(), SubClass)
-	assert_extends('a', 'b')
-	assert_extends([], Node)
+	assert_is(Node2D.new(), Node2D.new())
+	assert_is(BaseClass.new(), SubClass)
+	assert_is('a', 'b')
+	assert_is([], Node)
 ```
 
 #### <a name="assert_exports">assert_exports(obj, property_name, type)
@@ -715,14 +716,15 @@ func test_assert_has_method():
 	gut.p('-- failing --')
 	assert_has_method(some_class, 'method_does_not_exist')
 ```
-#### <a name="assert_get_set_methods"> assert_get_set_methods(obj, property, default, set_to)
-I found that making tests for most getters and setters was repetitious and annoying.  Enter `assert_get_set_methods`.  This assertion handles 80% of your getter and setter testing needs.  Given an object and a property name it will verify:
+#### <a name="assert_accessors"> assert_accessors(obj, property, default, set_to)
+__Formerly known as `assert_get_set_methods`.__<br/>
+I found that making tests for most getters and setters was repetitious and annoying.  Enter `assert_accessors`.  This assertion handles 80% of your getter and setter testing needs.  Given an object and a property name it will verify:
  * The object has a method called `get_<PROPERTY_NAME>`
  * The object has a method called `set_<PROPERTY_NAME>`
  * The method `get_<PROPERTY_NAME>` returns the expected default value when first called.
  * Once you set the property, the `get_<PROPERTY_NAME>`will return the value passed in.
 
-On the inside Gut actually performs up to 4 assertions.  So if everything goes right you will have four passing asserts each time you call `assert_get_set_methods`.  I say "up to 4 assertions" because there are 2 assertions to make sure the object has the methods and then 2 to verify they act correctly.  If the object does not have the methods, it does not bother running the tests for the methods.
+On the inside Gut actually performs up to 4 assertions.  So if everything goes right you will have four passing asserts each time you call `assert_accessors`.  I say "up to 4 assertions" because there are 2 assertions to make sure the object has the methods and then 2 to verify they act correctly.  If the object does not have the methods, it does not bother running the tests for the methods.
 ``` python
 class SomeClass:
 	var _count = 0
@@ -737,18 +739,18 @@ class SomeClass:
 	func set_nothing(val):
 		pass
 
-func test_assert_get_set_methods():
+func test_assert_accessors():
   var some_class = SomeClass.new()
   gut.p('-- passing --')
-  assert_get_set_methods(some_class, 'count', 0, 20) # 4 PASSING
+  assert_accessors(some_class, 'count', 0, 20) # 4 PASSING
 
   gut.p('-- failing --')
   # 1 FAILING, 3 PASSING
-  assert_get_set_methods(some_class, 'count', 'not_default', 20)  
+  assert_accessors(some_class, 'count', 'not_default', 20)  
   # 2 FAILING, 2 PASSING
-  assert_get_set_methods(some_class, 'nothing', 'hello', 22)
+  assert_accessors(some_class, 'nothing', 'hello', 22)
   # 2 FAILING
-  assert_get_set_methods(some_class, 'does_not_exist', 'does_not', 'matter')
+  assert_accessors(some_class, 'does_not_exist', 'does_not', 'matter')
 ```
 #### gut.p(text, level=0, indent=0)
 Print info to the GUI and console (if enabled).  You can see examples if this in the sample code above.  In order to be able to spot check the sample code, I print out a divider between the passing and failing tests.
