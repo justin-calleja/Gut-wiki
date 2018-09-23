@@ -6,16 +6,16 @@ Here's a sample test script.  Copy the contents into the file `res://test/unit/t
 
 ``` python
 extends "res://addons/gut/test.gd"
-func setup():
+func before_each():
 	gut.p("ran setup", 2)
 
-func teardown():
+func after_each():
 	gut.p("ran teardown", 2)
 
-func prerun_setup():
+func before_all():
 	gut.p("ran run setup", 2)
 
-func postrun_teardown():
+func after_all():
 	gut.p("ran run teardown", 2)
 
 func test_assert_eq_number_not_equal():
@@ -39,10 +39,10 @@ All test scripts must extend the test class.
 * `extends "res://addons/gut/test.gd"`
 
 Each test script has optional setup and teardown methods that are called at various stages of execution.  They take no parameters.
- * `setup()`:  Ran before each test
- * `teardown()`:  Ran after each test
- * `prerun_setup()`:  Ran before any test is run
- * `postrun_teardown()`:  Ran after all tests have run
+ * `before_each()`:  Ran before each test
+ * `after_each()`:  Ran after each test
+ * `before_all()`:  Ran before any test is run
+ * `after_all()`:  Ran after all tests have run
 
 All tests in the test script must start with the prefix `test_` in order for them to be run.  The methods must not have any parameters.
 * `func test_this_is_only_a_test():`
@@ -64,7 +64,7 @@ class TestFeatureA:
 	var Obj = load('res://scripts/object.gd')
 	var _obj = null
 
-	func setup():
+	func before_each():
 		_obj = Obj.new()
 
 	func test_something():
@@ -76,7 +76,7 @@ class TestFeatureB:
 	var Obj = load('res://scripts/object.gd')
 	var _obj = null
 
-	func setup():
+	func before_each():
 		_obj = Obj.new()
 
 	func test_foobar():

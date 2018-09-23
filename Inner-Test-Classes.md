@@ -1,4 +1,4 @@
-You can define test classes inside a test script that will be treated as test scripts themselves.  This allows you to create different contexts for your tests in a single script.  These Inner Classes have thier own `prerun_setup`, `setup`, `teardown`, and `postrun_teardown` methods that will be called.  Only the methods defined in the class are used, the methods defined in the containing script will not be called.
+You can define test classes inside a test script that will be treated as test scripts themselves.  This allows you to create different contexts for your tests in a single script.  These Inner Classes have thier own `before_all`, `before_each`, `after_each`, and `after_all` methods that will be called.  Only the methods defined in the class are used, the methods defined in the containing script will not be called.
 
 The Inner Classes must also extend `res://addons/gut/test.gd` and their constructor cannot take any parameters.  The Classes will be loaded and ran in the order they are defined _after_ all the tests in the containing script are run.  If the script does not contain any tests then only the Inner Classes will be listed in the output.
 
@@ -13,16 +13,16 @@ Given the following test script defined at `res://test/unit/some_example.gd`
 ```
 extends "res://addons/gut/test.gd"
 
-func prerun_setup():
+func before_all():
 	gut.p('script:  pre-run')
 
-func setup():
+func before_each():
 	gut.p('script:  setup')
 
-func teardown():
+func after_each():
 	gut.p('script:  teardown')
 
-func postrun_teardown():
+func after_all():
 	gut.p('script:  post-run')
 
 func test_something():
@@ -31,16 +31,16 @@ func test_something():
 class TestClass1:
 	extends "res://addons/gut/test.gd"
 
-	func prerun_setup():
+	func before_all():
 		gut.p('TestClass1:  pre-run')
 
-	func setup():
+	func before_each():
 		gut.p('TestClass1:  setup')
 
-	func teardown():
+	func after_each():
 		gut.p('TestClass1:  teardown')
 
-	func postrun_teardown():
+	func after_all():
 		gut.p('TestClass1:  post-run')
 
 	func test_context1_one():

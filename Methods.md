@@ -462,10 +462,10 @@ func test_get_signal_parameters():
 #### <a name="assert_file_exists"> assert_file_exists(file_path)
 asserts a file exists at the specified path
 ``` python
-func setup():
+func before_each():
 	gut.file_touch('user://some_test_file')
 
-func teardown():
+func after_each():
 	gut.file_delete('user://some_test_file')
 
 func test_assert_file_exists():
@@ -480,10 +480,10 @@ func test_assert_file_exists():
 #### <a name="assert_file_does_not_exist"> assert_file_does_not_exist(file_path)
 asserts a file does not exist at the specified path
 ``` python
-func setup():
+func before_each():
 	gut.file_touch('user://some_test_file')
 
-func teardown():
+func after_each():
 	gut.file_delete('user://some_test_file')
 
 func test_assert_file_does_not_exist():
@@ -497,10 +497,10 @@ func test_assert_file_does_not_exist():
 #### <a name="assert_file_empty"> assert_file_empty(file_path)
 asserts the specified file is empty
 ``` python
-func setup():
+func before_each():
 	gut.file_touch('user://some_test_file')
 
-func teardown():
+func after_each():
 	gut.file_delete('user://some_test_file')
 
 func test_assert_file_empty():
@@ -513,10 +513,10 @@ func test_assert_file_empty():
 #### <a name="assert_file_not_empty"> assert_file_not_empty(file_path)
 asserts the specified file is not empty
 ``` python
-func setup():
+func before_each():
 	gut.file_touch('user://some_test_file')
 
-func teardown():
+func after_each():
 	gut.file_delete('user://some_test_file')
 
 func test_assert_file_not_empty():
