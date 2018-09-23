@@ -14,7 +14,8 @@ The following settings are accessible in the Editor under "Script Variables"
 * <b>File Extension</b>:  This is the suffix it will use to find test files.  
 * <b>Inner Class Prefix</b>:  This is the prefix that Gut will use to find Inner Classes that are test scripts.
 * <b>Inner Class Name</b>:  Only run Inner Classes that have names that contain the specified string.  
-* <b>Directory(1-6)</b>:  The path to the directories where your test scripts are located.  Subdirectories are not included.  If you need more than six directories you can use the `add_directory` method to add more.
+* <b>Include Subdirectories</b>:  Include subdirectories when looking for tests.  This applies to the 6 "Directory" settings.
+* <b>Directory(1-6)</b>:  The path to the directories where your test scripts are located.  If you need more than six directories you can use the `add_directory` method to add more.
 
 ## <a name="gut_methods"> Methods for Configuring the Execution of Tests
 These methods would be used inside the scene you created at `res://test/tests.tcn`.  These methods can be called against the Gut node you created.  Most of these are not necessary anymore since you can configure Gut in the editor but they are here if you want to use them.  Simply put `get_node('Gut').` in front of any of them.  
@@ -38,6 +39,7 @@ These methods would be used inside the scene you created at `res://test/tests.tc
 * __**__`get/set_log_level(level)` see section on log level for list of values.
 * __**__`disable_strict_datatype_checks(true)` disables strict datatype checks.  See section on "Strict type checking" before disabling.
 * __**__ `maximize()` maximizes the gut window.
+* __**__ `get/set_include_subdirectories(should)` flag to include subdirectories when `add_directory` is called.  This is `false` by default.
 
 # <a name="extras"> Extras
 

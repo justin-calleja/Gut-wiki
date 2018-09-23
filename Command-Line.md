@@ -10,27 +10,29 @@ When running from command line, `0` will be returned if all tests pass and `1` w
 ### Options
 _Output from the command line help (-gh)_
 ```
+---  Gut  ---
 ---------------------------------------------------------
 This is the command line interface for the unit testing tool Gut.  With this interface you can run one or more test scripts from the command line.  In order for the Gut options to not clash with any other godot options, each option starts with a "g".  Also, any option that requires a value will take the form of "-g<name>=<value>".  There cannot be any spaces between the option, the "=", or inside a specified value or godot will think you are trying to run a scene.
 
 Options
 -------
-  -gtest            Comma delimited list of full paths to test scripts to run.
-  -gdir             Comma delimited list of directories to add tests from.
-  -gprefix          Prefix used to find tests when specifying -gdir.  Default "test_"
-  -gsuffix          Suffix used to find tests when specifying -gdir.  Default ".gd"
-  -gmaximize        Maximizes test runner window to fit the viewport.
-  -gexit            Exit after running tests.  If not specified you have to manually close the window.
-  -glog             Log level.  Default 1
-  -gignore_pause    Ignores any calls to gut.pause_before_teardown.
-  -gselect          Select a sccript to run initially.  The first script that was loaded using -gtest or -gdir that contains the specified string will be executed.  You may run others by interacting with the GUI.
-  -gunit_test_name  Name of a test to run.  Any test that contains the specified text will be run, all others will be skipped.
-  -gutloc           Full path (including name) of the gut script.  Default res://addons/gut/gut.gd
-  -gh               Print this help
-  -gconfig          A config file that contains configuration information.  Default is res://.gutconfig.json
-  -ginner_class     Only run inner classes that contain this string
-  -gopacity         Set opacity of test runner window. Use range 0 - 100. 0 = transparent, 100 = opaque.
-  -gpo              Print option values from all sources and the value used, then quit.
+ -gtest             Comma delimited list of full paths to test scripts to run.
+ -gdir              Comma delimited list of directories to add tests from.
+ -gprefix           Prefix used to find tests when specifying -gdir.  Default "test_"
+ -gsuffix           Suffix used to find tests when specifying -gdir.  Default ".gd"
+ -gmaximize         Maximizes test runner window to fit the viewport.
+ -gexit             Exit after running tests.  If not specified you have to manually close the window.
+ -glog              Log level.  Default 1
+ -gignore_pause     Ignores any calls to gut.pause_before_teardown.
+ -gselect           Select a sccript to run initially.  The first script that was loaded using -gtest or -gdir that contains the specified string will be executed.  You may run others by interacting with the GUI.
+ -gunit_test_name   Name of a test to run.  Any test that contains the specified text will be run, all others will be skipped.
+ -gutloc            Full path (including name) of the gut script.  Default res://addons/gut/gut.gd
+ -gh                Print this help
+ -gconfig           A config file that contains configuration information.  Default is res://.gutconfig.json
+ -ginner_class      Only run inner classes that contain this string
+ -gopacity          Set opacity of test runner window. Use range 0 - 100. 0 = transparent, 100 = opaque.
+ -gpo               Print option values from all sources and the value used, then quit.
+ -ginclude_subdirs  Include subdirectories of -gdir.
 ---------------------------------------------------------
 ```
 
@@ -64,7 +66,8 @@ Currently you can specify:
 	"should_maximize":false,
   "ignore_pause":true,
   "log": 3,
-  "inner_class":"LikeThis"
+  "inner_class":"LikeThis",
+	"include_subdirs":true
 }
 ```
 ### Alias
