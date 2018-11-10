@@ -14,7 +14,7 @@ Extract the zip and place the `gut` directory into your `addons` directory in yo
 
 ## New Install Setup
 ### Activate
-1.  From the menu choose Scene->Project Settings, click the plugins tab and activate Gut.
+1.  From the menu choose Project->Project Settings, click the Plugins tab and activate Gut.
 
 ### Setup Your Project to Run Tests
 The next few steps cover the suggested configuration.  Feel free to deviate where you see fit.
