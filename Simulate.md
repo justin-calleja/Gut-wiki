@@ -1,5 +1,9 @@
 ## <a name="simulate"> Simulate
-The simulate method will call the `_process` or `_fixed_process` on a tree of objects.  It takes in the base object, the number of times to call the methods and the delta value to be passed to `_process` or `_fixed_process` (if the object has one).  This will only cause code directly related to the `_process` and `_fixed_process` methods to run.  Signals will be sent, methods will be called but timers, for example, will not fire since the main loop of the game is not actually running.  Creating a test that yields is a better solution for testing such things.
+The simulate method will call the `_process` and `_physics_process` on a tree of objects.  It will check each object to see if they have either method and run it if it exists.  If you object has both (which I don't think you are supposed to do), it will call `_process` and then `_physics_process`.
+
+`simulate` takes in the base object, the number of times to call the methods and the delta value to be passed to `_process` or `_physics_process` (if the object has one).  It starts calling it on the passed in object and then moves through the tree recursively calling `_process` and `_physics_process`.  The order that the children are processed is determined by the order that `get_children` returns 
+
+`simulate` will only cause code directly related to the `_process` and `_physics_process` methods to run.  Signals will be sent, methods will be called but timers, for example, will not fire since the main loop of the game is not actually running.  Creating a test that `yield`s is a better solution for testing such things.
 
 Example
 ``` python
@@ -43,9 +47,9 @@ func test_does_something_each_loop():
   assert_eq(my_obj.a_number, 20, 'Since a_number is incremented in _process, it should be 20 now')
 
 # Let us also assume that AnotherObj acts exactly the same way as
-# but has SomeCoolObj but has a _fixed_process method instead of
+# but has SomeCoolObj but has a _physics_process method instead of
 # _process.  In that case, this test will pass too since all child objects
-# have the _process or _fixed_process method called.
+# have the _process or _physics_process method called.
 func test_does_something_each_loop():
   var my_obj = MyObject.new()
   var other_obj = AnotherObj.new()
@@ -58,7 +62,10 @@ func test_does_something_each_loop():
   assert_eq(my_obj.a_number, 20, 'Since a_number is incremented in _process, \
                                   it should be 20 now')
   assert_eq(other_obj.another_number, 20, 'Since other_obj is a child of my_obj \
-                                           and another_number is incremened in \
-                                           _fixed_process then it should be 20 now')
+                                           and another_number is incremented in \
+                                           _physics_process then it should be 20 now')
 
 ```
+
+# Where to next?
+* [Yielding](https://github.com/bitwes/Gut/wiki/Yielding)<br/>
