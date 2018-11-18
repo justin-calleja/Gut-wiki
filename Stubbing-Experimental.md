@@ -96,5 +96,5 @@ func test_illustrate_stubbing_scenes():
   stub(SCRIPT_PATH, 'return_hello').to_return('goodbye')
 
   assert_eq(scene.return_hello(), 'world')
-  assert_eq(scene.return_hello(), 'goodbye')
+  assert_eq(script.return_hello(), 'goodbye')
 ```
