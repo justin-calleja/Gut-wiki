@@ -1,5 +1,5 @@
 ## <a name="simulate"> Simulate
-The simulate method will call the `_process` and `_physics_process` on a tree of objects.  It will check each object to see if they have either method and run it if it exists.  If you object has both (which I don't think you are supposed to do), it will call `_process` and then `_physics_process`.
+The simulate method will call the `_process` and `_physics_process` on a tree of objects.  It will check each object to see if they have either method and run it if it exists.  In cases where the object has both it will call `_process` and then `_physics_process` and then move on to the next node in the tree.
 
 `simulate` takes in the base object, the number of times to call the methods and the delta value to be passed to `_process` or `_physics_process` (if the object has one).  It starts calling it on the passed in object and then moves through the tree recursively calling `_process` and `_physics_process`.  The order that the children are processed is determined by the order that `get_children` returns 
 
