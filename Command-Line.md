@@ -73,11 +73,11 @@ Currently you can specify:
 {
   "dirs":["res://test/unit/", "res://test/integration/"],
   "should_exit":true,
-	"should_maximize":false,
+  "should_maximize":false,
   "ignore_pause":true,
   "log": 3,
   "inner_class":"LikeThis",
-	"include_subdirs":true
+  "include_subdirs":true
 }
 ```
 ### Alias
