@@ -5,7 +5,7 @@ I've created a [3.1 branch](https://github.com/bitwes/Gut/tree/godot_3_1) that w
 If you find anything new or have any input, make/comment on an issue.
 
 ## Should be alright, probably
-* none yet
+* right now the stubbing is not working but everything else appears to be in order.
 
 ## Big deals
 * none yet
