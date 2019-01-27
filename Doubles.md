@@ -1,6 +1,4 @@
-[__This feature is experimental__](https://github.com/bitwes/Gut/wiki/About-Experimental)
-
-Doubles are useful when you want to test an object that requires another object but you don't want to be deal with the overhead of other object's implementation.  We want tests
+Doubles are useful when you want to test an object that requires another object but you don't want to be deal with the overhead of other object's implementation.  They allow us to keep tests simple.  Doubles have all the methods of their counterparts but none of the implementation.
 
 The `double` function creates a new script that has empty overloads for all methods defined in the class.  You can use the object returned from `double` to create instances of the "doubled" script.  Once you have a "doubled" object you can stub return values via `stub` and make assertions about which methods have been called on the instance using `assert_called`, `assert_not_called`, and `assert_call_count`.
 
@@ -9,7 +7,7 @@ See the [stubbing](https://github.com/bitwes/Gut/wiki/Stubbing-Experimental) and
 # There is one <u>VERY</u> important caveat.  
 Only methods that have been defined in the script you pass in OR methods that have been defined in parent scripts get the empty implementation in the double.  Methods defined in any built-in Godot class do not get overridden __unless__ the script (or parent script(s)) have them implemented.
 
-This will hopefully change in the future, but it's probably going to take a lot of trial and error...so no promises on when.
+This is in the process of being changed but it is not fully implemented yet.  See the section on Double Strategies.
 
 For example, given the following script at location `res://example.gd`
 ``` python
@@ -39,11 +37,11 @@ Then:
 
 
 # What can you double
-* Scripts via `double`.
+* Scripts and Inner Classes
   * All methods that do not come from built-in Godot classes will be stubbed to do nothing.  
   * All methods that come from built-in Godot classes will retain their original implementation even if overloaded in your class.
   * `_init` must have 0 parameters or the parameters must have default values.
-* Packed Scenes via `double_scene` (.tscn files only)
+* Packed Scenes
   * All the methods in the scene's script that do not come from built-in Godot classes will be overridden to do nothing.
   * All methods that come from built-in Godot classes will retain their original implementation unless overloaded in your script.
   * `_init` must have 0 parameters or the parameters must have default values.
@@ -52,12 +50,11 @@ Then:
 
 # What you cannot double
 * Scenes with the `.scn` extension.
-* Inner Classes
-* Any class whose `_init` method __requires__ parameters.  If all the parameters for `_init` have default values then it __will__ work.
+* Any class or scene whose `_init` method __requires__ parameters.  If all the parameters for `_init` have default values then it __will__ work.
 
 
 # Doubling Scripts
-Script doubles can be created using the `double` method.  This will return an object that can be instanced via `new`.  The doubled object will have all the methods defined in the source object but the implementation will be empty.  The doubled class inherits from the source object so it will have all the same variables and Inner Classes defined in the source object.  The Inner Classes will not be doubled, they will remain "as is".
+The `double` method works similarly to `load`.  It will return a loaded class or scene.  You can then call `new` or `instance` on it to create instances of a doubled object.  The doubled object will have all the methods defined in the source object but the implementation will be empty.  The doubled class inherits from the source object so it will have all the same variables and Inner Classes defined in the source object.  The Inner Classes of a script will not be doubled, they will remain "as is".  You can double a specific Inner Class though.
 
 
 ## Example
@@ -86,10 +83,29 @@ func test_doubling():
 ```
 Then the methods `return_seven`, `return_hello` will be altered for `doubled_inst`.  The Inner Class `InnerClass` would exist but any methods would not be altered.  The member variables `foo` and `bar` will also exist in `doubled_inst` and they will have the same values as the source class.
 
-Currently you __cannot__ double Inner Classes but should be implemented soon.
+# Doubling Inner Classes
+Call `double` passing the path of the script as the first parameter and then a `/` separated list of Inner Classes that make up the hierarchy of Inner Classes.
+
+``` python
+# Given this as res://sripts/inner_classes.gd
+class InnerA:
+  var something = null
+
+  class InnerA2:
+    var something_else = null
+
+class InnerB:
+  var thing = null
+
+# You would double the various Inner Classes like this:
+var DoubledInnerB = double('res://scripts/inner_classes.gd', 'InnerB')
+var DoubledInnerA2 = double('res://scripts/inner_classes.gd', 'InnerA/InnerA2')
+```
 
 # Doubling Packed Scenes
-Doubling packed scenes works very similar to doubling a script and is done using `double_scene`.  A doubled version of your scene is created along with a double of its script.  The doubled scene is altered to load the doubled script instead of the original.  A reference to the newly doubled scene is returned.  You can call `instance` on the returned reference.
+Doubling packed scenes works very similar to doubling a script and is done using `double`.  A doubled version of your scene is created along with a double of its script.  The doubled scene is altered to load the doubled script instead of the original.  A reference to the newly doubled scene is returned.  You can call `instance` on the returned reference.
+
+
 
 # Where to next?
 * [Stubbing](https://github.com/bitwes/Gut/wiki/Stubbing-Experimental)
