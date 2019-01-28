@@ -1,10 +1,90 @@
-Doubles are useful when you want to test an object that requires another object but you don't want to be deal with the overhead of other object's implementation.  They allow us to keep tests simple.  Doubles have all the methods of their counterparts but none of the implementation.
+The `double` method works similarly to `load`.  It will return a loaded class or scene that has empty implementations for all the methods defined in the script you pass it.  It will also include empty implementations for any methods in user-defined super classes.  It does not include implementations for any of the Godot Built-in super classes such as `Node2D` or `WindowDialog`.  
 
-The `double` function creates a new script that has empty overloads for all methods defined in the class.  You can use the object returned from `double` to create instances of the "doubled" script.  Once you have a "doubled" object you can stub return values via `stub` and make assertions about which methods have been called on the instance using `assert_called`, `assert_not_called`, and `assert_call_count`.
+All methods in a doubled object will return `null`.  You can change this behavior using [Stubbing](https://github.com/bitwes/Gut/wiki/Stubbing).
 
-See the [stubbing](https://github.com/bitwes/Gut/wiki/Stubbing-Experimental) and [spy](https://github.com/bitwes/Gut/wiki/Spies-Experimental) pages for more information.
+You can double Scripts, Inner Classes, and Packed Scenes.  Once you have a double, you can then call `new` or `instance` on it to create instances of a doubled object.  
 
-# There is one <u>VERY</u> important caveat.  
+Anything you `double` __must__ have an `_init` method that either takes 0 parameters or has defaults for all parameters.  Under the covers Gut will create an instance of the object you pass and then use Godot methods to get all the information about the object that Gut needs to create the double.
+
+The `double` method is pretty smart about what you pass it.  You can give it a `string` of a path to what you want to double or you can give it an already loaded class.  I added this little syntax sugar because I thought you would like it.
+
+### Doubling a Script
+To double a script just give it a path or an already loaded script.
+``` python
+const MY_SCRIPT_PATH = 'res://my_script.gd'
+var MyScript = load(MY_SCRIPT_PATH)
+
+# Load the doubled object.
+var DoubledMyScript = double(MY_SCRIPT_PATH)
+# or
+var DoubledMyScript = double(MyScript)
+
+# Create an instance of a doubled object
+var doubled_script = DoubledMyScript.new()
+# or
+var doubled_script = double(MyScript).new()
+```
+### Doubling an Inner Class
+When doubling an Inner Class you have to specify the path/script-object where the Inner Class is and then pass a `/` delimited list of Inner Classes that represents the hierarchy of the Inner Classes.
+
+``` python
+# -----------------------------------------------
+# Given this as res://sripts/my_inners.gd
+# -----------------------------------------------
+class InnerA:
+  var something = null
+
+  class InnerA2:
+    var something_else = null
+
+class InnerB:
+  var thing = null
+
+# -----------------------------------------------
+# You would double the various Inner Classes like this:
+# -----------------------------------------------
+const SCRIPT_WITH_INNERS_PATH = 'res://my_inners.gd'
+var ScriptWithInners = load(SCRIPT_WITH_INNERS_PATH)
+
+# Load the doubled objects
+var DoubledInnerB = double(SCRIPT_WITH_INNERS_PATH, 'InnerB')
+# or
+var DoubledInnerA2 = double(ScriptWithInners, 'InnerA/InnerA2')
+
+# Create an instance of a doubled inner class
+var doubled_inner_a2 = DoubledInnerA2.new()
+# or
+var doubled_inner_b = double(SCRIPT_WITH_INNERS, 'InnerB').new()
+```
+### Doubling a Scene
+A doubled version of your scene is created along with a double of its script.  The doubled scene is altered to load the doubled script instead of the original.  A reference to the newly doubled scene is returned.  You can call `instance` on the returned reference.
+
+``` python
+const MY_SCENE_PATH = 'res://my_scene.tscn'
+var MyScene = load(MY_SCENE_PATH)
+
+# Load up the doubled objects
+var DoubledScene = double(MY_SCENE_PATH)
+# or
+var DoubledScene = double(MyScene)
+
+# Create an instance
+var doubled_scene = DoubledScene.instance()
+# or
+var doubled_scene = double(MY_SCENE_PATH).instance()
+```
+
+# What Do I Do With My Double?
+Doubles are useful when you want to test an object that requires another object but you don't want to be deal with the overhead of other object's implementation.
+
+Sometimes an empty implementation isn't enough.  Sometimes you need specific values or things to be returned from one of your doubled methods.  For this we have [Stubbing](https://github.com/bitwes/Gut/wiki/Stubbing).  Stubbing allows you to specify return values in various different scenarios such as "returning a 9 whenever a method is called" or "returning 57 when a method is called with the parameters 'a' and 24".
+
+You can also [Spy](https://github.com/bitwes/Gut/wiki/Spies) on your double.  Once you have a double there are special `asserts` that can be used with it to verify that a method in the doubled object was called.  You can `assert` very specific calls too, such as with a specific list of parameters, or make sure it was called a certain number of times.
+
+# The Fine Details
+Doubling isn't perfect yet and there are some gotchas.
+
+## Example of Script vs Built-in doubling
 Only methods that have been defined in the script you pass in OR methods that have been defined in parent scripts get the empty implementation in the double.  Methods defined in any built-in Godot class do not get overridden __unless__ the script (or parent script(s)) have them implemented.
 
 This is in the process of being changed but it is not fully implemented yet.  See the section on Double Strategies.
@@ -35,78 +115,10 @@ Then:
 * You can use `assert_method_called(doubled, 'get_value')`
 * You __should not__ use `assert_method_called(doubled, 'get_position')`.  _You can but it will always return 0._
 
-
-# What can you double
-* Scripts and Inner Classes
-  * All methods that do not come from built-in Godot classes will be stubbed to do nothing.  
-  * All methods that come from built-in Godot classes will retain their original implementation even if overloaded in your class.
-  * `_init` must have 0 parameters or the parameters must have default values.
-* Packed Scenes
-  * All the methods in the scene's script that do not come from built-in Godot classes will be overridden to do nothing.
-  * All methods that come from built-in Godot classes will retain their original implementation unless overloaded in your script.
-  * `_init` must have 0 parameters or the parameters must have default values.
-  * The scene's script must be able to be instantiated with `new` without blowing up.
-
-
-# What you cannot double
-* Scenes with the `.scn` extension.
-* Any class or scene whose `_init` method __requires__ parameters.  If all the parameters for `_init` have default values then it __will__ work.
-
-
-# Doubling Scripts
-The `double` method works similarly to `load`.  It will return a loaded class or scene.  You can then call `new` or `instance` on it to create instances of a doubled object.  The doubled object will have all the methods defined in the source object but the implementation will be empty.  The doubled class inherits from the source object so it will have all the same variables and Inner Classes defined in the source object.  The Inner Classes of a script will not be doubled, they will remain "as is".  You can double a specific Inner Class though.
-
-
-## Example
-As of now, only methods not defined in a built in class have their implementation changed.  For example given the script `res://scripts/double_this.gd`:
-
-``` python
-extends Node2D
-
-var foo = -1
-var bar = 10
-
-func return_seven():
-  return 7
-
-func return_hello():
-  return 'hello'
-
-class InnerClass:
-  var another_foo = 100
-```
-When doubled in a test:
-``` python
-func test_doubling():
-  var DoubledObj = double('res://scripts/double_this.gd')
-  var doubled_inst = DoubledObj.new()
-```
-Then the methods `return_seven`, `return_hello` will be altered for `doubled_inst`.  The Inner Class `InnerClass` would exist but any methods would not be altered.  The member variables `foo` and `bar` will also exist in `doubled_inst` and they will have the same values as the source class.
-
-# Doubling Inner Classes
-Call `double` passing the path of the script as the first parameter and then a `/` separated list of Inner Classes that make up the hierarchy of Inner Classes.
-
-``` python
-# Given this as res://sripts/inner_classes.gd
-class InnerA:
-  var something = null
-
-  class InnerA2:
-    var something_else = null
-
-class InnerB:
-  var thing = null
-
-# You would double the various Inner Classes like this:
-var DoubledInnerB = double('res://scripts/inner_classes.gd', 'InnerB')
-var DoubledInnerA2 = double('res://scripts/inner_classes.gd', 'InnerA/InnerA2')
-```
-
-# Doubling Packed Scenes
-Doubling packed scenes works very similar to doubling a script and is done using `double`.  A doubled version of your scene is created along with a double of its script.  The doubled scene is altered to load the doubled script instead of the original.  A reference to the newly doubled scene is returned.  You can call `instance` on the returned reference.
-
+## Specifics About The Doubled Object
+The doubled object that you get back will inherit from the object you specify.  This means that the object will have all the variables and Inner Classes defined in the object.  The variables will have the default values defined in the script.  Inner Classes in the source script will retain all of their functionality.  They are not doubled in any way.  This is because the Inner Classes that end up in your double are actually from the script it inherits from.  You can create doubles of specific Inner Classes but the Inner Classes in a doubled script are not altered in any way.
 
 
 # Where to next?
-* [Stubbing](https://github.com/bitwes/Gut/wiki/Stubbing-Experimental)
-* [Spies](https://github.com/bitwes/Gut/wiki/Spies-Experimental)
+* [Stubbing](https://github.com/bitwes/Gut/wiki/Stubbing)
+* [Spies](https://github.com/bitwes/Gut/wiki/Spies)
