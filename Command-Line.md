@@ -32,7 +32,7 @@ Options
  -gmaximize         Maximizes test runner window to fit the viewport.
  -gexit             Exit after running tests.  If not specified you have to manually close the window.
  -glog              Log level.  Default 1
- -gignore_pause     Ignores any calls to gut.pause_before_teardown.
+ -gignore_pause     Ignores any calls to pause_before_teardown.
  -gselect           Select a sccript to run initially.  The first script that was loaded using -gtest or -gdir that contains the specified string will be executed.  You may run others by interacting with the GUI.
  -gunit_test_name   Name of a test to run.  Any test that contains the specified text will be run, all others will be skipped.
  -gutloc            Full path (including name) of the gut script.  Default res://addons/gut/gut.gd

@@ -1,4 +1,4 @@
-The `double` method works similarly to `load`.  It will return a loaded class or scene that has empty implementations for all the methods defined in the script you pass it.  It will also include empty implementations for any methods in user-defined super classes.  It does not include implementations for any of the Godot Built-in super classes such as `Node2D` or `WindowDialog`.  
+The `double` method works similarly to `load`.  It will return a loaded class or scene that has empty implementations for all the methods defined in the script you pass it.  It will also include empty implementations for any methods in user-defined super classes.  It does not include implementations for any of the Godot Built-in super classes such as `Node2D` or `WindowDialog` (unless you have overloaded them in your script or in one of the user-defined super classes your script inherits from).  
 
 All methods in a doubled object will return `null`.  You can change this behavior using [Stubbing](https://github.com/bitwes/Gut/wiki/Stubbing).
 
@@ -118,6 +118,41 @@ Then:
 ## Specifics About The Doubled Object
 The doubled object that you get back will inherit from the object you specify.  This means that the object will have all the variables and Inner Classes defined in the object.  The variables will have the default values defined in the script.  Inner Classes in the source script will retain all of their functionality.  They are not doubled in any way.  This is because the Inner Classes that end up in your double are actually from the script it inherits from.  You can create doubles of specific Inner Classes but the Inner Classes in a doubled script are not altered in any way.
 
+# Doubling Strategy (Experimental)
+Remember all that stuff I said earlier about not being able to double Godot Built-Ins?  Forget about it...or forget half of it, maybe 45% of it.  
+
+You can spy on most of the Built-Ins in Godot if you enable the `FULL` Doubling Strategy.  You still cannot Stub these methods but one thing at a time.  I've enabled this feature in my own game and it didn't crash (I currently have 75 test scripts and 3633 asserts).  As reassuring as that was I'm still not sure that it won't blow up for someone so it is off by default.
+
+## Setting the Doubling Strategy
+You can set the default strategy from the command line, .gutconfig, or by calling `set_double_strategy` on your Gut instance.  
+
+You can also override the default strategy at the Test Script level or for a specific call to `double`.  When set at the script level, it will reset at the end of the script or Inner Test Class.  When passed to `double` it will only take effect for that one double.
+
+### .gutconfig
+Valid values are `partial`(default) or `full`
+```
+"double_strategy":"full"
+```
+### Command Line
+Use the `-gdouble_strategy` option with the values `partial` or `full`
+```
+-gdouble_strategy=full
+```
+### Script Level
+```
+set_double_strategy(DOUBLE_STRATEGY.FULL)
+set_double_strategy(DOUBLE_STRATEGY.PARTIAL)
+```
+### When Calling `double`
+Just add another parameter to your call to `double` using the `DOUBLE_STRATEGY` enum.  
+```
+double('res://thing.gd', DOUBLE_STRATEGY.PARTIAL)
+double('res://inners.gd', 'InnerA', DOUBLE_STRATEGY.FULL)
+double('res://my_scene.tscn', DOUBLE_STRATEGY.PARTIAL)
+```
+
+## Built-In Methods You Cannot Spy On.
+TODO add the list
 
 # Where to next?
 * [Stubbing](https://github.com/bitwes/Gut/wiki/Stubbing)

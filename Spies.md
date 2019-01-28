@@ -1,5 +1,3 @@
-[__This feature is experimental__](https://github.com/bitwes/Gut/wiki/About-Experimental)
-
 When a `double` is instanced, Gut will record calls to methods that are defined in the script or scripts in inherits from.  You can then make assertions to check if a method was called (or not called), if it was called with a certain set of values, or how many times it was called.
 
 You should read the page on doubling before using this, as there are some gotchas with doubling.

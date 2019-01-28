@@ -1,5 +1,3 @@
-[__This feature is experimental__](https://github.com/bitwes/Gut/wiki/About-Experimental)
-
 The `stub` function allows you to set return values for methods for a "doubled" script or instance.  You can stub any doubled class to return values.  Stubs can be layered to address general and specific situations.
 
 # The fine print

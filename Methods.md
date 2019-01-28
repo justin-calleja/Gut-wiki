@@ -1,9 +1,32 @@
-These methods should be used in tests to make assertions.  These methods are available to anything that inherits from the Test class (`extends "res://addons/gut/test.gd"`).  All sample code listed for the methods can be found here in [test_readme_examples.gd](gut_tests_and_examples/test/samples/test_readme_examples.gd)
+These are all the methods, bells, whistles and blinky lights you get when you extend the Gut Test Class (`extends "res://addons/gut/test.gd"`).  
 
-# Methods (alphabetical)
+All sample code listed for the methods can be found here in [test_readme_examples.gd](gut_tests_and_examples/test/samples/test_readme_examples.gd)
+
+# Utilities
 <table><tr>
 <td>
+TODO sort these lines
+[end_test](#end_test)<br/>
+[get_signal_emit_count](#get_signal_emit_count)<br/>
+[get_signal_parameters](#get_signal_parameters)<br/>
+[pending](#pending)<br/>
+[watch_signals](#watch_signals)<br/>
+[yield_for](#yield_for)<br/>
+[yield_to](#yield_to)<br/>
 
+[gut.p](#gut_p)<br/>
+[pause_before_teardown](#pause_before_teardown)<br/>
+
+[double](#double)<br/> TODO
+[stub](#stub)<br/> TODO
+[simulate](#simulate) TODO
+</td>
+</tr>
+
+# Assertions
+<table><tr>
+<td>
+TODO re-balance table
 [assert_accessors](#assert_accessors)<br/>
 [assert_almost_eq](#assert_almost_eq)<br/>
 [assert_almost_ne](#assert_almost_ne)<br/>
@@ -37,13 +60,6 @@ These methods should be used in tests to make assertions.  These methods are ava
 [assert_string_ends_with](#assert_string_ends_with)<br/>
 [assert_string_starts_with](#assert_string_starts_with)<br/>
 [assert_true](#assert_true)<br/>
-[end_test](#end_test)<br/>
-[get_signal_emit_count](#get_signal_emit_count)<br/>
-[get_signal_parameters](#get_signal_parameters)<br/>
-[pending](#pending)<br/>
-[watch_signals](#watch_signals)<br/>
-[yield_for](#yield_for)<br/>
-[yield_to](#yield_to)<br/>
 
 
 </td>
@@ -751,10 +767,10 @@ func test_assert_accessors():
   # 2 FAILING
   assert_accessors(some_class, 'does_not_exist', 'does_not', 'matter')
 ```
-#### gut.p(text, level=0, indent=0)
+#### <a name="gut_p"> gut.p(text, level=0, indent=0)
 Print info to the GUI and console (if enabled).  You can see examples if this in the sample code above.  In order to be able to spot check the sample code, I print out a divider between the passing and failing tests.
 
-#### gut.pause_before_teardown()
+#### <a name="pause_before_teardown"> pause_before_teardown()
 This method will cause Gut to pause before it moves on to the next test.  This is useful for debugging, for instance if you want to investigate the screen or anything else after a test has finished executing.  See also `set_ignore_pause_before_teardown`
 
 #### <a name="yield_for"> yield_for(time_in_seconds)
