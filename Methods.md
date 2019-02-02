@@ -5,28 +5,27 @@ All sample code listed for the methods can be found here in [test_readme_example
 # Utilities
 <table><tr>
 <td>
-TODO sort these lines
+[double](#double)<br/>
 [end_test](#end_test)<br/>
 [get_signal_emit_count](#get_signal_emit_count)<br/>
 [get_signal_parameters](#get_signal_parameters)<br/>
+[gut.p](#gut_p)<br/>
+[pause_before_teardown](#pause_before_teardown)<br/>
 [pending](#pending)<br/>
+[simulate](#simulate)
+[stub](#stub)<br/>
 [watch_signals](#watch_signals)<br/>
 [yield_for](#yield_for)<br/>
 [yield_to](#yield_to)<br/>
-
-[gut.p](#gut_p)<br/>
-[pause_before_teardown](#pause_before_teardown)<br/>
-
-[double](#double)<br/> TODO
-[stub](#stub)<br/> TODO
-[simulate](#simulate) TODO
 </td>
 </tr>
 
+
 # Assertions
+
 <table><tr>
 <td>
-TODO re-balance table
+
 [assert_accessors](#assert_accessors)<br/>
 [assert_almost_eq](#assert_almost_eq)<br/>
 [assert_almost_ne](#assert_almost_ne)<br/>
@@ -42,13 +41,11 @@ TODO re-balance table
 [assert_file_exists](#assert_file_exists)<br/>
 [assert_file_not_empty](#assert_file_not_empty)<br/>
 [assert_gt (greater than)](#assert_gt)<br/>
+</td><td>
 [assert_has_method](#assert_has_method)<br/>
 [assert_has_signal](#assert_has_signal)<br/>
 [assert_has](#assert_has)<br/>
 [assert_is](#assert_is)<br/>
-
-</td><td>
-
 [assert_lt (less than)](#assert_lt)<br/>
 [assert_ne (not equal)](#assert_ne)<br/>
 [assert_not_called](#assert_not_called)<br/>
@@ -849,3 +846,15 @@ func test_illustrate_end_test():
 	# finished.
 	end_test()
 ```
+
+#### <a name="double"> double(path_or_class, inner_class_path=null)
+This will return a double of a class.  See [Doubles](Doubles) for more information.
+
+#### <a name="simulate"> simulate(obj, times, delta)
+This will call `_process` or `_physics_process` on the passed in object and all children of the object.  It will call them `times` times and pass in `delta` to each call.  See [Simulate](Simulate) for more information.
+
+#### <a name="stub"> stub(...)
+Allows you to stub a [doubled](Doubles) instance of a script or scene to return a value.  See [Stubbing](Stubbing) for a list of parameters and instructions on Stubbing.
+
+#### <a name="gut.p" gut.p(msg)
+This will print a message that will show up in the scene or in the command line output.  It will be indented under the test that it was outputted from for easier reading.

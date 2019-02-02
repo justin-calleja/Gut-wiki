@@ -11,8 +11,10 @@ Extract the zip and place the `gut` directory into your `addons` directory in yo
 1.  Click the 2nd "Install" button that appears when the download finishes.  It will be in a little dialog at the bottom of the AssetLib window.
 1.  Click the 3rd "Install" button.
 1.  You did it!
+Here's a short setup tutorial provided by Rainware which might be helpful https://www.youtube.com/watch?v=vBbqlfmcAlc
 
-## New Install Setup
+
+## Setup
 ### Activate
 1.  From the menu choose Project->Project Settings, click the Plugins tab and activate Gut.
 
@@ -37,3 +39,4 @@ That's it.  The next step is to make some tests.
 # Where to next?
 * [Creating Tests](https://github.com/bitwes/Gut/wiki/Creating-Tests)<br/>
 * [Gut Settings and Methods](https://github.com/bitwes/Gut/wiki/Gut-Settings-And-Methods)
+* [Command Line](https://github.com/bitwes/Gut/wiki/Command-Line)

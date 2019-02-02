@@ -3,4 +3,4 @@ Features marked as "Experimental" might not be fully implemented or could have a
 Feedback about these features is __greatly__ appreciated.
 
 # Current Experimental Features:
-* Using the FULL Double Strategy (TODO put in a link to the section in doubling)
+* Using the FULL Double Strategy.  You can find out more at the bottom of the Double page.

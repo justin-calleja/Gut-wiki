@@ -56,6 +56,8 @@ var doubled_inner_a2 = DoubledInnerA2.new()
 # or
 var doubled_inner_b = double(SCRIPT_WITH_INNERS, 'InnerB').new()
 ```
+When doubling Inners and passing a loaded class, you have to pass the class that contains the Inner Class(es).  Given the example above, you __CANNOT__ do `double(ScriptWithInners.InnerB)`.  You __MUST__ always pass the path to the inner classes.
+
 ### Doubling a Scene
 A doubled version of your scene is created along with a double of its script.  The doubled scene is altered to load the doubled script instead of the original.  A reference to the newly doubled scene is returned.  You can call `instance` on the returned reference.
 
@@ -123,6 +125,21 @@ Remember all that stuff I said earlier about not being able to double Godot Buil
 
 You can spy on most of the Built-Ins in Godot if you enable the `FULL` Doubling Strategy.  You still cannot Stub these methods but one thing at a time.  I've enabled this feature in my own game and it didn't crash (I currently have 75 test scripts and 3633 asserts).  As reassuring as that was I'm still not sure that it won't blow up for someone so it is off by default.
 
+The following methods cannot be spied on due to implementation details with either Gut or GDScript.  There might be more.  
+
+```
+has_method      _draw
+get_script      _physics_process
+get             _input
+_notification   _unhandled_input
+get_path        _set
+_enter_tree     _get
+_exit_tree      emit_signal
+_process
+```
+##### Remember
+These are only not Spieable or Stubbable if they are not in your class.  If you've defined one of these methods in your class then you can double/spy on them just as you normally would.
+
 ## Setting the Doubling Strategy
 You can set the default strategy from the command line, .gutconfig, or by calling `set_double_strategy` on your Gut instance.  
 
@@ -150,9 +167,6 @@ double('res://thing.gd', DOUBLE_STRATEGY.PARTIAL)
 double('res://inners.gd', 'InnerA', DOUBLE_STRATEGY.FULL)
 double('res://my_scene.tscn', DOUBLE_STRATEGY.PARTIAL)
 ```
-
-## Built-In Methods You Cannot Spy On.
-TODO add the list
 
 # Where to next?
 * [Stubbing](https://github.com/bitwes/Gut/wiki/Stubbing)
