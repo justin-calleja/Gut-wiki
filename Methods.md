@@ -3,7 +3,7 @@ These are all the methods, bells, whistles and blinky lights you get when you ex
 All sample code listed for the methods can be found here in [test_readme_examples.gd](gut_tests_and_examples/test/samples/test_readme_examples.gd)
 
 # Utilities
-[double](#double) |
+| [double](#double) |
 [end_test](#end_test) |
 [get_signal_emit_count](#get_signal_emit_count) |
 [get_signal_parameters](#get_signal_parameters) |
@@ -19,7 +19,7 @@ All sample code listed for the methods can be found here in [test_readme_example
 
 # Assertions
 
-[assert_accessors](#assert_accessors) | 
+| [assert_accessors](#assert_accessors) | 
 [assert_almost_eq](#assert_almost_eq) | 
 [assert_almost_ne](#assert_almost_ne) | 
 [assert_between](#assert_between)
