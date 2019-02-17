@@ -3,64 +3,52 @@ These are all the methods, bells, whistles and blinky lights you get when you ex
 All sample code listed for the methods can be found here in [test_readme_examples.gd](gut_tests_and_examples/test/samples/test_readme_examples.gd)
 
 # Utilities
-<table><tr>
-<td>
-[double](#double)<br/>
-[end_test](#end_test)<br/>
-[get_signal_emit_count](#get_signal_emit_count)<br/>
-[get_signal_parameters](#get_signal_parameters)<br/>
-[gut.p](#gut_p)<br/>
-[pause_before_teardown](#pause_before_teardown)<br/>
-[pending](#pending)<br/>
+[double](#double) |
+[end_test](#end_test) |
+[get_signal_emit_count](#get_signal_emit_count) |
+[get_signal_parameters](#get_signal_parameters) |
+[gut.p](#gut_p) |
+[pause_before_teardown](#pause_before_teardown) |
+[pending](#pending) |
 [simulate](#simulate)
-[stub](#stub)<br/>
-[watch_signals](#watch_signals)<br/>
-[yield_for](#yield_for)<br/>
-[yield_to](#yield_to)<br/>
-</td>
-</tr>
+[stub](#stub) |
+[watch_signals](#watch_signals) |
+[yield_for](#yield_for) |
+[yield_to](#yield_to) |
 
 
 # Assertions
 
-<table><tr>
-<td>
-
-[assert_accessors](#assert_accessors)<br/>
-[assert_almost_eq](#assert_almost_eq)<br/>
-[assert_almost_ne](#assert_almost_ne)<br/>
-[assert_between](#assert_between)<br/>
-[assert_call_count](#assert_call_count)<br/>
-[assert_called](#assert_called)<br/>
-[assert_does_not_have](#assert_does_not_have)<br/>
-[assert_eq (equal)](#assert_eq)<br/>
-[assert_exports](#assert_exports)<br/>
-[assert_false](#assert_false)<br/>
-[assert_file_does_not_exist](#assert_file_does_not_exist)<br/>
-[assert_file_empty](#assert_file_empty)<br/>
-[assert_file_exists](#assert_file_exists)<br/>
-[assert_file_not_empty](#assert_file_not_empty)<br/>
-[assert_gt (greater than)](#assert_gt)<br/>
-</td><td>
-[assert_has_method](#assert_has_method)<br/>
-[assert_has_signal](#assert_has_signal)<br/>
-[assert_has](#assert_has)<br/>
-[assert_is](#assert_is)<br/>
-[assert_lt (less than)](#assert_lt)<br/>
-[assert_ne (not equal)](#assert_ne)<br/>
-[assert_not_called](#assert_not_called)<br/>
-[assert_signal_emit_count](#assert_signal_emit_count)<br/>
-[assert_signal_emitted_with_parameters](#assert_signal_emitted_with_parameters)<br/>
-[assert_signal_emitted](#assert_signal_emitted)<br/>
-[assert_signal_not_emitted](#assert_signal_not_emitted)<br/>
-[assert_string_contains](#assert_string_contains)<br/>
-[assert_string_ends_with](#assert_string_ends_with)<br/>
-[assert_string_starts_with](#assert_string_starts_with)<br/>
-[assert_true](#assert_true)<br/>
-
-
-</td>
-</tr></table>
+[assert_accessors](#assert_accessors) | 
+[assert_almost_eq](#assert_almost_eq) | 
+[assert_almost_ne](#assert_almost_ne) | 
+[assert_between](#assert_between)
+[assert_call_count](#assert_call_count) |
+[assert_called](#assert_called) |
+[assert_does_not_have](#assert_does_not_have) |
+[assert_eq (equal)](#assert_eq) |
+[assert_exports](#assert_exports) |
+[assert_false](#assert_false) |
+[assert_file_does_not_exist](#assert_file_does_not_exist) |
+[assert_file_empty](#assert_file_empty) |
+[assert_file_exists](#assert_file_exists) |
+[assert_file_not_empty](#assert_file_not_empty) |
+[assert_gt (greater than)](#assert_gt) |
+[assert_has_method](#assert_has_method) |
+[assert_has_signal](#assert_has_signal) |
+[assert_has](#assert_has) |
+[assert_is](#assert_is) |
+[assert_lt (less than)](#assert_lt) |
+[assert_ne (not equal)](#assert_ne) |
+[assert_not_called](#assert_not_called) |
+[assert_signal_emit_count](#assert_signal_emit_count) |
+[assert_signal_emitted_with_parameters](#assert_signal_emitted_with_parameters) |
+[assert_signal_emitted](#assert_signal_emitted) |
+[assert_signal_not_emitted](#assert_signal_not_emitted) |
+[assert_string_contains](#assert_string_contains) |
+[assert_string_ends_with](#assert_string_ends_with) |
+[assert_string_starts_with](#assert_string_starts_with) |
+[assert_true](#assert_true) |
 
 #### <a name="pending"> pending(text="")
 flag a test as pending, the optional message is printed in the GUI
