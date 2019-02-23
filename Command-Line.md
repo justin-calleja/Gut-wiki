@@ -66,7 +66,6 @@ Currently you can specify:
 * `inner_class`  Only run inner classes that contain this string.  It is case sensitive.
 * `opacity` Sets the opacity of the GUI.
 * `should_maximize` Maximize the Gut window.
-* `include_subdirs` Flag to indicate if the subdirectories of `dirs` should be included.
 
 #### Example
 ``` json
@@ -76,8 +75,7 @@ Currently you can specify:
   "should_maximize":false,
   "ignore_pause":true,
   "log": 3,
-  "inner_class":"LikeThis",
-  "include_subdirs":true
+  "inner_class":"LikeThis"
 }
 ```
 ### Alias
