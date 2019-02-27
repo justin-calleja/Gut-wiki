@@ -3,7 +3,8 @@ These are all the methods, bells, whistles and blinky lights you get when you ex
 All sample code listed for the methods can be found here in [test_readme_examples.gd](https://github.com/bitwes/Gut/blob/master/test/samples/test_readme_examples.gd)
 
 # Utilities
-| [double](#double) |
+|
+[double](#double) |
 [get_call_parameters](#get_call_parameters) |
 [get_signal_emit_count](#get_signal_emit_count) |
 [get_signal_parameters](#get_signal_parameters) |
@@ -18,8 +19,8 @@ All sample code listed for the methods can be found here in [test_readme_example
 
 
 # Assertions
-
-| [assert_accessors](#assert_accessors) |
+|
+[assert_accessors](#assert_accessors) |
 [assert_almost_eq](#assert_almost_eq) |
 [assert_almost_ne](#assert_almost_ne) |
 [assert_between](#assert_between) |
@@ -41,6 +42,8 @@ All sample code listed for the methods can be found here in [test_readme_example
 [assert_lt (less than)](#assert_lt) |
 [assert_ne (not equal)](#assert_ne) |
 [assert_not_called](#assert_not_called) |
+[assert_not_null](#assert_not_null) |
+[assert_null](#assert_null) |
 [assert_signal_emit_count](#assert_signal_emit_count) |
 [assert_signal_emitted_with_parameters](#assert_signal_emitted_with_parameters) |
 [assert_signal_emitted](#assert_signal_emitted) |
@@ -142,6 +145,29 @@ gut.p('-- failing --')
 assert_false(true) # FAIL
 assert_false('ABC' == 'ABC') # FAIL
 ```
+
+#### <a name="assert_null"> assert_null(got)
+asserts the passed in value is null
+```python
+gut.p('-- passing --')
+assert_null(null)
+
+gut.p('-- failing --')
+assert_null('a')
+assert_null(1)
+```
+
+#### <a name="assert_not_null"> assert_not_null(got)
+asserts the passed in value is not null
+```python
+gut.p('-- passing --')
+assert_not_null('a')
+assert_not_null(1)
+
+gut.p('-- failing --')
+assert_not_null(null)
+```
+
 #### <a name="assert_between"> assert_between(got, expect_low, expect_high, text="")
 asserts got > expect_low and <= expect_high
 ``` python
