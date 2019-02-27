@@ -1,6 +1,6 @@
 ##  <a name="yielding"> Yielding during a test
 
-I'm not going to try and explain yielding here.  It can be a bit confusing and [Godot does a pretty good job of it already](http://docs.godotengine.org/en/latest/reference/gdscript.html#coroutines).  Gut has support for yielding though, so you can yield at anytime in your test.  The one caveat is that you must use one of the various asserts or `pending()` after the yield.  Otherwise Gut won't know that the yield has finished.  You can optionally use `end_test()` if an assert or `pending` doesn't make sense for some reason.
+I'm not going to try and explain yielding here.  It can be a bit confusing and [Godot does a pretty good job of it already](http://docs.godotengine.org/en/latest/reference/gdscript.html#coroutines).  Gut has support for yielding though, so you can yield at anytime in your test.  
 
 When might you want to yield?  Yielding is very handy when you want to wait for a signal to occur instead of running for a finite amount of time.  For example, you could have your test yield until your character gets hit by something (`yield(my_char, 'hit')`).  An added bonus of this approach is that you can watch everything happen.  In your test you create your character, the object to hit it, and then watch the interaction play out.
 
@@ -40,9 +40,7 @@ func test_wait_for_a_bit():
 Sometimes it's also helpful to just watch things play out.  Yield is great for that, you just create a couple objects, set them to interact and then yield.  You can leave the yields in or take them out if your test passes without them.  You can also use the `pause_before_teardown` method that will pause test execution before it runs `teardown` and moves onto the next test.  This keeps the game loop running after the test has finished and you can see what everything looks like.
 
 ### How Yielding and Gut Works
-For those that are interested, Gut is able to detect when a test has called yield because the method returns a special class back.  Gut itself will then `yield` to an internal timer and check to see if an assertion or `pending()` or `end_test()` has been called every second, if not it waits again.
-
-If you only yielded using `yield_for` then Gut would always know when to resume the test and could handle it itself.  You can yield to anything though and Gut cannot tell the difference.  Also, when you yield to something else Gut has no way of knowing when the method has continued so you have to tell it when you are done so it will stop waiting.  One side effect of this is that if you `yield` multiple times in the same test, Gut can't tell.  It continues to wait from the first yield and you won't see any additional "yield detected" outputs in the GUI or console.
+For those that are interested, Gut is able to detect when a test has called yield because the method returns a special class back (`GDScriptFunctionState`).  Gut itself will then `yield` to the `completed` signal provided by the `GDScriptFunctionState` that is returned when your test yielded.  It also kicks off a timer that will print out messages so you know it hasn't locked up.
 
 The `yield_for()` method and `YIELD` constant are some syntax sugar built into the `Test` object.  `yield` takes in an object and a signal.  The `yield_for` method kicks off a timer inside Gut that will run for however many seconds you passed in.  It also returns the Gut object so that `yield` has an object to yield to.  The `YIELD` constant contains the name of the signal that Gut emits when the timer finishes.
 

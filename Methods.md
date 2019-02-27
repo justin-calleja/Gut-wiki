@@ -1,16 +1,16 @@
 These are all the methods, bells, whistles and blinky lights you get when you extend the Gut Test Class (`extends "res://addons/gut/test.gd"`).  
 
-All sample code listed for the methods can be found here in [test_readme_examples.gd](gut_tests_and_examples/test/samples/test_readme_examples.gd)
+All sample code listed for the methods can be found here in [test_readme_examples.gd](https://github.com/bitwes/Gut/blob/master/test/samples/test_readme_examples.gd)
 
 # Utilities
 | [double](#double) |
-[end_test](#end_test) |
+[get_call_parameters](#get_call_parameters) |
 [get_signal_emit_count](#get_signal_emit_count) |
 [get_signal_parameters](#get_signal_parameters) |
 [gut.p](#gut_p) |
 [pause_before_teardown](#pause_before_teardown) |
 [pending](#pending) |
-[simulate](#simulate)
+[simulate](#simulate) |
 [stub](#stub) |
 [watch_signals](#watch_signals) |
 [yield_for](#yield_for) |
@@ -19,10 +19,10 @@ All sample code listed for the methods can be found here in [test_readme_example
 
 # Assertions
 
-| [assert_accessors](#assert_accessors) | 
-[assert_almost_eq](#assert_almost_eq) | 
-[assert_almost_ne](#assert_almost_ne) | 
-[assert_between](#assert_between)
+| [assert_accessors](#assert_accessors) |
+[assert_almost_eq](#assert_almost_eq) |
+[assert_almost_ne](#assert_almost_ne) |
+[assert_between](#assert_between) |
 [assert_call_count](#assert_call_count) |
 [assert_called](#assert_called) |
 [assert_does_not_have](#assert_does_not_have) |
@@ -691,6 +691,9 @@ func test_assert_call_count():
 
 ```
 
+#### <a name="get_call_parameters">get_call_parameters(obj, method_name, index=-1)
+This method allows you to get the parameters that were sent to a call to a doubled object's method.  You must pass it an object created with/from `double`.  It will return and array containing the parameters from the most recent call by default.  You can optionally specify an index to get where the first call to the method is at position `0`.  If no calls were made to the method or you pass in a object this is not a double then `null` is returned.
+
 #### <a name="assert_has_method">assert_has_method(obj, method)
 Asserts that the passed in object has a method named `method`.
 ```python
@@ -759,7 +762,7 @@ Print info to the GUI and console (if enabled).  You can see examples if this in
 This method will cause Gut to pause before it moves on to the next test.  This is useful for debugging, for instance if you want to investigate the screen or anything else after a test has finished executing.  See also `set_ignore_pause_before_teardown`
 
 #### <a name="yield_for"> yield_for(time_in_seconds)
-This simplifies the code needed to pause the test execution for a number of seconds so the thing that you are testing can run its course in real time.  There are more details in the Yielding section.  It is designed to be used with the `yield` built in.  The following example will pause your test execution (and only the test execution) for 2 seconds before continuing.  You must call an assert or `pending` or `end_test()` after a yield or the test will never stop running.
+This simplifies the code needed to pause the test execution for a number of seconds so the thing that you are testing can run its course in real time.  There are more details in the Yielding section.  It is designed to be used with the `yield` built in.  The following example will pause your test execution (and only the test execution) for 2 seconds before continuing.
 ``` python
 class MovingNode:
 	extends Node2D
@@ -783,7 +786,7 @@ func test_illustrate_yield():
 ```
 
 #### <a name="yield_to"> yield_to(object, signal_name, max_time)
-`yield_to` allows you to yield to a signal just like `yield` but for a maximum amount of time.  This keeps tests moving along when signals are not emitted.  Just like with any test that has a yield in it, you must call an assert or `pending` or `end_test()` after a yield or the test will never stop running.
+`yield_to` allows you to yield to a signal just like `yield` but for a maximum amount of time.  This keeps tests moving along when signals are not emitted.
 
 As a bonus, `yield_to` does an implicit call to `watch_signals` so you can easily make signal based assertions afterwards.
 ``` python
@@ -824,16 +827,6 @@ func test_illustrate_yield_to_with_more_time():
 	# will pass
 	assert_signal_emitted(t, 'the_signal', 'This will pass')
 ```
-#### <a name="end_test"> end_test()
-This is a holdover from previous versions.  You should probably use an assert or `pending` to close out a yielded test but you can use this instead if you really really want to.
-``` python
-func test_illustrate_end_test():
-	yield(yield_for(1), YIELD)
-	# we don't have anything to test yet, or at all.  So we
-	# call end_test so that Gut knows all the yielding has
-	# finished.
-	end_test()
-```
 
 #### <a name="double"> double(path_or_class, inner_class_path=null)
 This will return a double of a class.  See [Doubles](Doubles) for more information.
@@ -843,6 +836,3 @@ This will call `_process` or `_physics_process` on the passed in object and all 
 
 #### <a name="stub"> stub(...)
 Allows you to stub a [doubled](Doubles) instance of a script or scene to return a value.  See [Stubbing](Stubbing) for a list of parameters and instructions on Stubbing.
-
-#### <a name="gut.p" gut.p(msg)
-This will print a message that will show up in the scene or in the command line output.  It will be indented under the test that it was outputted from for easier reading.
