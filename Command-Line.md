@@ -25,25 +25,25 @@ This is the command line interface for the unit testing tool Gut.  With this int
 
 Options
 -------
- -gtest             Comma delimited list of full paths to test scripts to run.
- -gdir              Comma delimited list of directories to add tests from.
- -gprefix           Prefix used to find tests when specifying -gdir.  Default "test_"
- -gsuffix           Suffix used to find tests when specifying -gdir.  Default ".gd"
- -gmaximize         Maximizes test runner window to fit the viewport.
- -gexit             Exit after running tests.  If not specified you have to manually close the window.
- -glog              Log level.  Default 1
- -gignore_pause     Ignores any calls to pause_before_teardown.
- -gselect           Select a sccript to run initially.  The first script that was loaded using -gtest or -gdir that contains the specified string will be executed.  You may run others by interacting with the GUI.
- -gunit_test_name   Name of a test to run.  Any test that contains the specified text will be run, all others will be skipped.
- -gutloc            Full path (including name) of the gut script.  Default res://addons/gut/gut.gd
- -gh                Print this help
- -gconfig           A config file that contains configuration information.  Default is res://.gutconfig.json
- -ginner_class      Only run inner classes that contain this string
- -gopacity          Set opacity of test runner window. Use range 0 - 100. 0 = transparent, 100 = opaque.
- -gpo               Print option values from all sources and the value used, then quit.
- -ginclude_subdirs  Include subdirectories of -gdir.
----------------------------------------------------------
-```
+  -gtest                    Comma delimited list of full paths to test scripts to run.
+  -gdir                     Comma delimited list of directories to add tests from.
+  -gprefix                  Prefix used to find tests when specifying -gdir.  Default "test_"
+  -gsuffix                  Suffix used to find tests when specifying -gdir.  Default ".gd"
+  -gmaximize                Maximizes test runner window to fit the viewport.
+  -gexit                    Exit after running tests.  If not specified you have to manually close the window.
+  -glog                     Log level.  Default 1
+  -gignore_pause            Ignores any calls to gut.pause_before_teardown.
+  -gselect                  Select a script to run initially.  The first script that was loaded using -gtest or -gdir that contains the specified string will be executed.  You may run others by interacting with the GUI.
+  -gunit_test_name          Name of a test to run.  Any test that contains the specified text will be run, all others will be skipped.
+  -gh                       Print this help, then quit
+  -gconfig                  A config file that contains configuration information.  Default is res://.gutconfig.json
+  -ginner_class             Only run inner classes that contain this string
+  -gopacity                 Set opacity of test runner window. Use range 0 - 100. 0 = transparent, 100 = opaque.
+  -gpo                      Print option values from all sources and the value used, then quit.
+  -ginclude_subdirs         Include subdirectories of -gdir.
+  -gdouble_strategy         Default strategy to use when doubling.  Valid values are [partial, full].  Default "partial"
+  -gprint_gutconfig_sample  Print out json that can be used to make a gutconfig file then quit.
+---------------------------------------------------------```
 
 ### Examples
 
@@ -58,24 +58,24 @@ Load all test scripts that begin with 'me_' and end in '.res' and run me_only_on
 ### Config file
 To cut down on the amount of arguments you have to pass to gut and to make it easier to change them, you can optionally use a json file to specify some of the values.  By default `gut_cmdln` looks for a config file at `res://.gutconfig.json`.  You can specify a different file using the `-gconfig` option.
 
-Currently you can specify:
-* `dirs` An array of directories to look for test scripts.
-* `should_exit` True/false flag to indicate if Gut should exit upon completion.
-* `ignore_pause` True/false flag to indicate if Gut should ignore any "pause before teardown" calls.
-* `log` The log level (1-3).
-* `inner_class`  Only run inner classes that contain this string.  It is case sensitive.
-* `opacity` Sets the opacity of the GUI.
-* `should_maximize` Maximize the Gut window.
-
+Here is a sample file.  You can print out the text for a gutconfig file using the `-gprint_gutconfig_sample` option.
 #### Example
 ``` json
 {
-  "dirs":["res://test/unit/", "res://test/integration/"],
+  "dirs":["res://test/unit/","res://test/integration/"],
+  "double_strategy":"partial",
+  "ignore_pause":false,
+  "include_subdirs":true,
+  "inner_class":"",
+  "log_level":3,
+  "opacity":100,
+  "prefix":"test_",
+  "selected":"",
   "should_exit":true,
-  "should_maximize":false,
-  "ignore_pause":true,
-  "log": 3,
-  "inner_class":"LikeThis"
+  "should_maximize":true,
+  "suffix":".gd",
+  "tests":[],
+  "unit_test_name":""
 }
 ```
 ### Alias

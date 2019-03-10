@@ -2,11 +2,11 @@ When a `double` is instanced, Gut will record calls to methods that are defined 
 
 You should read the page on doubling before using this, as there are some gotchas with doubling.
 
-The following asserts can be used to "spy" on doubled objects:
+The following methods can be used to "spy" on doubled objects:
 * `assert_called`
 * `assert_not_called`
 * `assert_call_count`
-
+* `get_call_parameters`
 
 #### <a name="assert_called">assert_called(inst, method_name, parameters=null)
 This assertion is is one of the ways Gut implements Spies.  It requires that you pass it an instance of a "doubled" object.  An instance created with `double` will record when a method it has is called.  You can then make assertions based on this.  

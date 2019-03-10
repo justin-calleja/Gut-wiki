@@ -11,11 +11,13 @@ All sample code listed for the methods can be found here in [test_readme_example
 [gut.p](#gut_p) |
 [pause_before_teardown](#pause_before_teardown) |
 [pending](#pending) |
+[replace_node](#replace_node) |
 [simulate](#simulate) |
 [stub](#stub) |
 [watch_signals](#watch_signals) |
 [yield_for](#yield_for) |
 [yield_to](#yield_to) |
+
 
 
 # Assertions
@@ -862,3 +864,14 @@ This will call `_process` or `_physics_process` on the passed in object and all 
 
 #### <a name="stub"> stub(...)
 Allows you to stub a [doubled](Doubles) instance of a script or scene to return a value.  See [Stubbing](Stubbing) for a list of parameters and instructions on Stubbing.
+
+#### <a name="replace_node"> replace_node(base_node, path_or_node, with_this)
+Replaces the child node of base_node with `with_this`.  You can pass a path to a node or a child node.  `with_this` will get all groups that the replaced node had.  The replaced node is freed via `queue_free`.
+
+This is useful when you want to double a node in another node.  Your code might be referencing the node via a call to `get_node` or might be using the `$` syntax to get to the object.  `replace_node` allows you to replace a node in another node and retain all of your `get_node` and `$` references.  
+
+This will only work for references made __after__ `replace_node` has been called.  If your object has a local variable that points to the node that gets replaced and:
+* it was set on `_init`
+* or it was set in `_ready` and the base object has already been added to the tree
+
+then these variables will point to the old object (which gets freed after the call to `repalce_node`).

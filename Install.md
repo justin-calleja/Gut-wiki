@@ -15,10 +15,10 @@ Here's a short setup tutorial provided by Rainware which might be helpful https:
 
 
 ## Setup
-### Activate
+###### Activate
 1.  From the menu choose Project->Project Settings, click the Plugins tab and activate Gut.
 
-### Setup Your Project to Run Tests
+###### Setup Your Project to Run Tests
 The next few steps cover the suggested configuration.  Feel free to deviate where you see fit.
 
 1.  Create directories to store your tests and test related code
@@ -36,7 +36,7 @@ The next few steps cover the suggested configuration.  Feel free to deviate wher
 
 That's it.  The next step is to make some tests.
 
-# Where to next?
+## Where to next?
 * [Creating Tests](https://github.com/bitwes/Gut/wiki/Creating-Tests)<br/>
 * [Gut Settings and Methods](https://github.com/bitwes/Gut/wiki/Gut-Settings-And-Methods)
 * [Command Line](https://github.com/bitwes/Gut/wiki/Command-Line)
