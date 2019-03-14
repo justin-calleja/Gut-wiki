@@ -7,7 +7,7 @@
 1.  Progress bars for all scripts and the current script.
 1.  Log Level slider.  
 1.  Previous Script (in list of scripts)
-1.  Run the currently selected script and all scripts after it.
+1.  Run the currently selected script and all scripts after it.  This can be especially useful when running on another device and some script in the middle of the list causes a crash.  To run the tests after the crash, just select that test in the list and click this button.  It will run that one and all the ones after.
 1.  Next Script (in list of scripts)
 1.  Run the currently selected script.  If an Inner Class is selected then just that class will be run.  If a Script is selected then the script and all of its Inner Classes will be run.
 1.  Toggle display of List of Test Scripts

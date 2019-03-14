@@ -1,6 +1,6 @@
-When you export your project, all the scripts get compiled and Gut cannot parse them anymore.  To address this Gut now has some methods and settings that make it possible to run your tests on any device.
+When you export your project, all the scripts get compiled and Gut cannot parse them anymore.  To address this Gut has some methods and settings that make it possible to run your tests on any device.
 
-Exporting is only supported through a scene since there is no built-in way to run the tests in your exported game via the command line.  I'm sure it is possible for platforms like Windows and Linux but it would be very difficult for any mobile platform.  To that end, you will have to have a scene in your game that has a Gut node (See the Setup section on the Install page).  I'm going to assume the node name is `$Gut`.  
+Exporting is only supported through a scene since there is no built-in way to run the tests in your exported game via the command line.  To that end, you will have to have a scene in your game that has a Gut node (See the Setup section on the Install page).  I'm going to assume the node name is `$Gut`.  
 
 ## Configuring Gut to Export
 Select the Gut node and set the and set the `Export Path` setting in the Inspector.  This must be a file in the `res://` directory.  I've been using `res://test/exported_tests.cfg`.  This way the file won't be included when you create a production export which, of course, excludes the `test` directory from the build.
