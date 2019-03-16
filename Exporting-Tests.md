@@ -1,9 +1,10 @@
 # Godot 3.1 Export
-Unbeknownst to me, an old feature from 2.x has been reintroduced and you can export your tests as text which should allow you to run your tests on any device.
+The new Exporting functionality is currently broke in 3.1.  But good news, an old 2.x feature has been reintroduced and you can export your tests as text which should allow you to run your tests on any device.
 
 Just change the following setting in your exports settings form `compiled` to `text`
 [[https://raw.githubusercontent.com/wiki/bitwes/Gut/export_as_text.png|alt=export_as_text]]
 
+If you don't want to pass out your code in plain text, a future release will fix this feature in 3.1.  The fix will allow you to export the tests in both `compiled` and `encrypted` modes.  3.1 came out of nowhere and I figured it was better to get this out than to delay 6.7.0 when such a decent work around existed.
 
 # Godot 3.0 Exporting
 When you export your project, all the scripts get compiled and Gut cannot parse them anymore.  To address this Gut has some methods and settings that make it possible to run your tests on any device.
