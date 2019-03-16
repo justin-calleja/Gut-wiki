@@ -1,3 +1,11 @@
+# Godot 3.1 Export
+Unbeknownst to me, an old feature from 2.x has been reintroduced and you can export your tests as text which should allow you to run your tests on any device.
+
+Just change the following setting in your exports settings form `compiled` to `text`
+[[https://raw.githubusercontent.com/wiki/bitwes/Gut/export_as_text.png|alt=export_as_text]]
+
+
+# Godot 3.0 Exporting
 When you export your project, all the scripts get compiled and Gut cannot parse them anymore.  To address this Gut has some methods and settings that make it possible to run your tests on any device.
 
 Exporting is only supported through a scene since there is no built-in way to run the tests in your exported game via the command line.  To that end, you will have to have a scene in your game that has a Gut node (See the Setup section on the Install page).  I'm going to assume the node name is `$Gut`.  
