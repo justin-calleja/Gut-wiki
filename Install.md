@@ -6,6 +6,8 @@ Extract the zip and place the `gut` directory into your `addons` directory in yo
 ## Installing from in-editor Godot Asset Lib
 __3.0 NOTE__ The latest version of Gut still works with 3.0 but you won't find it in the Asset Library (you can only associate a single version with a plugin).  Instead install by downloading from Github.
 
+Follow the instructions or checkout this tutorial by Rainware:  https://www.youtube.com/watch?v=vBbqlfmcAlc
+
 1.  Click the AssetLib button at the top of the editor
 1.  Search for "Gut"
 1.  Click it.
@@ -13,7 +15,6 @@ __3.0 NOTE__ The latest version of Gut still works with 3.0 but you won't find i
 1.  Click the 2nd "Install" button that appears when the download finishes.  It will be in a little dialog at the bottom of the AssetLib window.
 1.  Click the 3rd "Install" button.
 1.  You did it!
-Here's a short setup tutorial provided by Rainware which might be helpful https://www.youtube.com/watch?v=vBbqlfmcAlc
 
 
 ## Setup
