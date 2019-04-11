@@ -4,6 +4,8 @@ Download and extract the zip from the [releases](https://github.com/bitwes/gut/r
 Extract the zip and place the `gut` directory into your `addons` directory in your project.  If you don't have an `addons` folder at the root of your project, then make one and THEN put the `gut` directory in there.
 
 ## Installing from in-editor Godot Asset Lib
+__3.0 NOTE__ The latest version of Gut still works with 3.0 but you won't find it in the Asset Library (you can only associate a single version with a plugin).  Instead install by downloading from Github.
+
 1.  Click the AssetLib button at the top of the editor
 1.  Search for "Gut"
 1.  Click it.
