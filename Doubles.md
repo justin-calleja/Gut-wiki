@@ -1,12 +1,12 @@
-The `double` method works similarly to `load`.  It will return a loaded class or scene that has empty implementations for all the methods defined in the script you pass it.  It will also include empty implementations for any methods in user-defined super classes.  It does not include implementations for any of the Godot Built-in super classes such as `Node2D` or `WindowDialog` (unless you have overloaded them in your script or in one of the user-defined super classes your script inherits from).  
+The `double` method works similarly to `load`.  It will return a loaded class or scene that has empty implementations for all the methods defined in the script you pass it.  It will also include empty implementations for any methods in user-defined super classes.  It does not include implementations for any of the Godot Built-in super classes such as `Node2D` or `WindowDialog` (unless you have overloaded them in your script or in one of the user-defined super classes your script inherits from).  Actually, you can if you use the FULL Doubling strategy described at the bottom of this page.
 
-All methods in a doubled object will return `null`.  You can change this behavior using [Stubbing](https://github.com/bitwes/Gut/wiki/Stubbing).
+All methods in a doubled object will return `null`.  You can change this behavior using [Stubbing](https://github.com/bitwes/Gut/wiki/Stubbing).  You can change methods to return specific values or even to call the original logic.
 
 You can double Scripts, Inner Classes, and Packed Scenes.  Once you have a double, you can then call `new` or `instance` on it to create instances of a doubled object.  
 
 Anything you `double` __must__ have an `_init` method that either takes 0 parameters or has defaults for all parameters.  Under the covers Gut will create an instance of the object you pass and then use Godot methods to get all the information about the object that Gut needs to create the double.
 
-The `double` method is pretty smart about what you pass it.  You can give it a `string` of a path to what you want to double or you can give it an already loaded class.  I added this little syntax sugar because I thought you would like it.
+You can also create a [Partial Double](https://github.com/bitwes/Gut/wiki/PartialDouble) which will act exactly like its source object but you can spy and stub any method.  It's like the inverse of a double.
 
 ### Doubling a Script
 To double a script just give it a path or an already loaded script.
@@ -123,7 +123,7 @@ The doubled object that you get back will inherit from the object you specify.  
 # Doubling Strategy (Experimental)
 Remember all that stuff I said earlier about not being able to double Godot Built-Ins?  Forget about it...or forget half of it, maybe 45% of it.  
 
-You can spy on most of the Built-Ins in Godot if you enable the `FULL` Doubling Strategy.  You still cannot Stub these methods but one thing at a time.  I've enabled this feature in my own game and it didn't crash (I currently have 75 test scripts and 3633 asserts).  As reassuring as that was I'm still not sure that it won't blow up for someone so it is off by default.
+You can spy and stub most of the Built-Ins in Godot if you enable the `FULL` Doubling Strategy. I've enabled this feature in my own game and it didn't crash (I currently have 75 test scripts and 3633 asserts).  As reassuring as that was I'm still not sure that it won't blow up for someone so it is off by default.
 
 The following methods cannot be spied on due to implementation details with either Gut or GDScript.  There might be more.  
 
@@ -132,13 +132,13 @@ has_method      _draw
 get_script      _physics_process
 get             _input
 _notification   _unhandled_input
-get_path        _set
+get_path        _unhandled_key_input
 _enter_tree     _get
 _exit_tree      emit_signal
-_process
+_process        _set
 ```
 ##### Remember
-These are only not Spieable or Stubbable if they are not in your class.  If you've defined one of these methods in your class then you can double/spy on them just as you normally would.
+If you've defined one of these methods in your class then you can double/spy on them just as you normally would.
 
 ## Setting the Doubling Strategy
 You can set the default strategy from the command line, .gutconfig, or by calling `set_double_strategy` on your Gut instance.  
