@@ -1,4 +1,4 @@
-# Gut 6.7.0
+# Gut 6.8.0
 GUT (Godot Unit Test) is a utility for writing tests for your Godot Engine game.  It allows you to write tests for your gdscript in gdscript.
 
 ### Godot 3.1 Compatible.

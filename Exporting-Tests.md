@@ -1,12 +1,12 @@
-# Godot 3.1 Export
-The new Exporting functionality is currently broke in 3.1.  But good news, an old 2.x feature has been reintroduced and you can export your tests as text which should allow you to run your tests on any device.
+# Godot 3.1 Export As Text
+In Godot 3.1 an old 2.x feature was reintroduced that allows you to export your scripts as text.  Normally Godot will compile your tests and GUT cannot parse compiled tests.  If you change the setting below then GUT will be able to find and parse all your tests when the project is exported.
 
 Just change the following setting in your exports settings form `compiled` to `text`
 [[https://raw.githubusercontent.com/wiki/bitwes/Gut/export_as_text.png|alt=export_as_text]]
 
-If you don't want to pass out your code in plain text, a future release will fix this feature in 3.1.  The fix will allow you to export the tests in both `compiled` and `encrypted` modes.  3.1 came out of nowhere and I figured it was better to get this out than to delay 6.7.0 when such a decent work around existed.
+If you don't want to pass out your code in plain text or you are using Godot 3.0, then you can use the next section to export your tests.
 
-# Godot 3.0 Exporting
+# Exporting Compiled/Encrypted/Godot 3.0 Tests
 When you export your project, all the scripts get compiled and Gut cannot parse them anymore.  To address this Gut has some methods and settings that make it possible to run your tests on any device.
 
 Exporting is only supported through a scene since there is no built-in way to run the tests in your exported game via the command line.  To that end, you will have to have a scene in your game that has a Gut node (See the Setup section on the Install page).  I'm going to assume the node name is `$Gut`.  
@@ -46,4 +46,4 @@ Gut also has methods that you can use to have full control over when and where y
 * `export_tests(path=export_path)`
 * `import_tests(path=export_path)`
 
-As you probably inferred, `export_tests` and `import_tests` will use any path you give them or the value set by `set_export_path`.
+`export_tests` and `import_tests` will use any path you give them or the value set by `set_export_path` if no path is passed.
