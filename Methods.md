@@ -891,6 +891,7 @@ This method will add a method for a script to an ignore list.  This means the me
 Parser Error: Function signature doesn't match the parent. Parent signature is: 'Variant foo()'.
 ```
 
+`ignore_method_when_doubling` takes two parameters.  The first parameter can be a path to a script, a path to a scene, a loaded script, or a loaded scene.  The second is the name of the method to ignore.
 
 ``` python
 # -----------------------------------------------
