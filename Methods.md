@@ -9,6 +9,7 @@ All sample code listed for the methods can be found here in [test_readme_example
 [get_signal_emit_count](#get_signal_emit_count) |
 [get_signal_parameters](#get_signal_parameters) |
 [gut.p](#gut_p) |
+[ignore_method_when_doubling](#ignore_method_when_doubling) |
 [pause_before_teardown](#pause_before_teardown) |
 [pending](#pending) |
 [replace_node](#replace_node) |
@@ -881,6 +882,13 @@ This will call `_process` or `_physics_process` on the passed in object and all 
 
 #### <a name="stub"> stub(...)
 Allows you to stub a [doubled](Doubles) instance of a script or scene to return a value.  See [Stubbing](Stubbing) for a list of parameters and instructions on Stubbing.
+
+#### <a name="ignore_method_when_doubling"> ignore_method_when_doubling(path_or_class, method_name)
+This method will add a method for a script to the ignore list.  This means the method will not be included in the double.  This is required if you are attempting to double a class that has static methods.  Each of the static methods must be added to the ignore list or you will get a parser error similar to:
+```
+Parser Error: Function signature doesn't match the parent. Parent signature is: 'Variant foo()'.
+```
+See the "Doubling Static Methods" section of the Doubles page.
 
 #### <a name="replace_node"> replace_node(base_node, path_or_node, with_this)
 Replaces the child node of base_node with `with_this`.  You can pass a path to a node or a child node of base_node.  `with_this` will get all groups that the replaced node had.  `with_this` also gets the same "name" that the replaced node had so that any references to it via `$` will work.  The replaced node is freed via `queue_free`.

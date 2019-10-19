@@ -76,6 +76,58 @@ var doubled_scene = DoubledScene.instance()
 var doubled_scene = double(MY_SCENE_PATH).instance()
 ```
 
+### Doubling Static Methods
+Currently you cannot double static methods.  In fact if you try to double a class with a static method then you will get an error that looks similar to:
+```
+Parser Error: Function signature doesn't match the parent. Parent signature is: 'Variant foo()'.
+```
+As of now, GUT does not have the ability to detect static methods in the code.  As a workaround there is the `ignore_method_when_doubling` method.  This method takes in a variant as the first parameter and a method name as the second.  The first parameter can be a path to a script, a path to a scene, a loaded script, or a loaded scene.
+
+Calling this method will prevent GUT from trying to make a stubbed out version of the method in the generated double allowing you to successfully double your classes that contain static methods.
+
+These ignored methods are cleared after each test is ran to avoid any unexpected results in your tests, so you may want to add this call to your `before_each`.
+
+When a method is added to the ignore list, it cannot be stubbed or spied on.
+
+``` python
+# -----------------------------------------------
+# Given this as res://scripts/has_statics.gd
+# -----------------------------------------------
+static func this_is_static():
+  pass
+
+func not_static():
+  return 'foo'
+
+# -----------------------------------------------
+# You can double this script like this:
+# -----------------------------------------------
+func test_can_double_classes_with_statics_if_ignored():
+  ignore_method_when_doubling('res://scripts/has_statics.gd', 'this_is_static')
+  var d_has_statics = double('res://scripts/has_statics.gd').new()
+  assert_not_null(d_has_statics)
+
+func test_can_use_loaded_scripts_to_ignore_statics():
+  var HasStatics = load('res://scripts/has_statics.gd')
+  ignore_method_when_doubling(HasStatics, 'this_is_static')
+  var d_has_statics = double(HasStatics).new()
+  assert_not_null(d_has_statics)  
+
+func test_cannot_spy_or_stub_ignored_methods():
+  var HasStatics = load('res://scripts/has_statics.gd')
+  ignore_method_when_doubling(HasStatics, 'this_is_static')
+  ignore_method_when_doubling(HasStatics, 'not_static')
+
+  var d_has_statics = double(HasStatics).new()
+  # This stub will not be used since the method was ignored
+  stub(d_has_statics, 'not_static').to_return('bar')
+  var result = d_has_statics.not_static()
+
+  assert_eq(result, 'foo', 'not stubbed so "foo" will be returned')
+  # this will pass, even though the method was called,
+  # because you cannot spy on ignored methods.
+  assert_not_called(d_has_statics, 'not_static')
+```
 # What Do I Do With My Double?
 Doubles are useful when you want to test an object that requires another object but you don't want to be deal with the overhead of other object's implementation.
 
