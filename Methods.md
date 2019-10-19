@@ -884,11 +884,53 @@ This will call `_process` or `_physics_process` on the passed in object and all 
 Allows you to stub a [doubled](Doubles) instance of a script or scene to return a value.  See [Stubbing](Stubbing) for a list of parameters and instructions on Stubbing.
 
 #### <a name="ignore_method_when_doubling"> ignore_method_when_doubling(path_or_class, method_name)
-This method will add a method for a script to the ignore list.  This means the method will not be included in the double.  This is required if you are attempting to double a class that has static methods.  Each of the static methods must be added to the ignore list or you will get a parser error similar to:
+This was implemented to allow the doubling of classes with static methods.  There might be other valid use cases for this method, but you should always try stubbing before using this method.  Using `stub(my_double, 'method').to_call_super()` or  creating a `partial_double` works for any other known scenario.  You cannot stub or spy on methods passed to `ignore_method_when_doubling`.
+
+This method will add a method for a script to an ignore list.  This means the method will not be included in the double.  This is required if you are attempting to double a class that has static methods.  Each of the static methods must be added to the ignore list or you will get a parser error similar to:
 ```
 Parser Error: Function signature doesn't match the parent. Parent signature is: 'Variant foo()'.
 ```
-See the "Doubling Static Methods" section of the Doubles page.
+
+
+``` python
+# -----------------------------------------------
+# Given this as res://scripts/has_statics.gd
+# -----------------------------------------------
+static func this_is_static():
+  pass
+
+func not_static():
+  return 'foo'
+
+# -----------------------------------------------
+# You can double this script like this:
+# -----------------------------------------------
+func test_can_double_classes_with_statics_if_ignored():
+  ignore_method_when_doubling('res://scripts/has_statics.gd', 'this_is_static')
+  var d_has_statics = double('res://scripts/has_statics.gd').new()
+  assert_not_null(d_has_statics)
+
+func test_can_use_loaded_scripts_to_ignore_statics():
+  var HasStatics = load('res://scripts/has_statics.gd')
+  ignore_method_when_doubling(HasStatics, 'this_is_static')
+  var d_has_statics = double(HasStatics).new()
+  assert_not_null(d_has_statics)  
+
+func test_cannot_spy_or_stub_ignored_methods():
+  var HasStatics = load('res://scripts/has_statics.gd')
+  ignore_method_when_doubling(HasStatics, 'this_is_static')
+  ignore_method_when_doubling(HasStatics, 'not_static')
+
+  var d_has_statics = double(HasStatics).new()
+  # This stub will not be used since the method was ignored
+  stub(d_has_statics, 'not_static').to_return('bar')
+  var result = d_has_statics.not_static()
+
+  assert_eq(result, 'foo', 'not stubbed so "foo" will be returned')
+  # this will pass, even though the method was called,
+  # because you cannot spy on ignored methods.
+  assert_not_called(d_has_statics, 'not_static')
+```
 
 #### <a name="replace_node"> replace_node(base_node, path_or_node, with_this)
 Replaces the child node of base_node with `with_this`.  You can pass a path to a node or a child node of base_node.  `with_this` will get all groups that the replaced node had.  `with_this` also gets the same "name" that the replaced node had so that any references to it via `$` will work.  The replaced node is freed via `queue_free`.
