@@ -22,7 +22,6 @@ All sample code listed for the methods can be found here in [test_readme_example
 
 
 # Assertions
-|
 [assert_accessors](#assert_accessors) |
 [assert_almost_eq](#assert_almost_eq) |
 [assert_almost_ne](#assert_almost_ne) |
@@ -37,6 +36,7 @@ All sample code listed for the methods can be found here in [test_readme_example
 [assert_file_empty](#assert_file_empty) |
 [assert_file_exists](#assert_file_exists) |
 [assert_file_not_empty](#assert_file_not_empty) |
+[assert_freed](#assert_freed)|
 [assert_gt (greater than)](#assert_gt) |
 [assert_has_method](#assert_has_method) |
 [assert_has_signal](#assert_has_signal) |
@@ -45,6 +45,7 @@ All sample code listed for the methods can be found here in [test_readme_example
 [assert_lt (less than)](#assert_lt) |
 [assert_ne (not equal)](#assert_ne) |
 [assert_not_called](#assert_not_called) |
+[assert_not_freed](#assert_not_freed) |
 [assert_not_null](#assert_not_null) |
 [assert_null](#assert_null) |
 [assert_signal_emit_count](#assert_signal_emit_count) |
@@ -55,6 +56,7 @@ All sample code listed for the methods can be found here in [test_readme_example
 [assert_string_ends_with](#assert_string_ends_with) |
 [assert_string_starts_with](#assert_string_starts_with) |
 [assert_true](#assert_true) |
+|
 
 #### <a name="pending"> pending(text="")
 flag a test as pending, the optional message is printed in the GUI
@@ -579,6 +581,32 @@ func test_assert_is():
 	assert_is(BaseClass.new(), SubClass)
 	assert_is('a', 'b')
 	assert_is([], Node)
+```
+
+#### <a name="assert_freed">assert_freed(obj, text)
+Asserts that the passed in object has been freed.  This assertion requires that  you pass in some text in the form of a title since, if the object is freed, we won't have anything to convert to a string to put in the output statement.
+
+Note that this currently does not detect if a node has been queued free.
+``` python
+func test_object_is_freed_should_pass():
+	var obj = Node.new()
+	obj.free()
+	test.assert_freed(obj, "New Node")
+```
+
+#### <a name="assert_not_freed">assert_not_freed(obj, text)
+The inverse of `assert_freed`
+
+``` python
+func test_object_is_not_freed_should_pass():
+	var obj = Node.new()
+	assert_not_freed(obj, "New Node")
+
+func test_queued_free_is_not_freed():
+	var obj = Node.new()
+	add_child(obj)
+	obj.queue_free()
+	assert_not_freed(obj, "New Node")
 ```
 
 #### <a name="assert_exports">assert_exports(obj, property_name, type)
