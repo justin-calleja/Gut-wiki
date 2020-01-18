@@ -89,6 +89,16 @@ These ignored methods are cleared after each test is ran to avoid any unexpected
 
 There's more info and examples on this method on the [[Methods|Methods]] page.
 
+### Doubling Built-Ins
+You can `double` built-in objects that are not inherited by a script such as a `Node2D` or a `Raycast2D`.  These doubles are always created using the Doubling Strategy (see below) of "FULL" since there are not any overloaded methods.
+
+For example you can `double` or `partial_double` like this:
+``` python
+var doubled_node2d = double(Node2D).new()
+stub(doubled_node2d, 'get_position').to_return(-1)
+
+var partial_doubled_raycast = partial_double(Raycast2D).new()
+```
 
 # What Do I Do With My Double?
 Doubles are useful when you want to test an object that requires another object but you don't want to be deal with the overhead of other object's implementation.
@@ -134,7 +144,7 @@ Then:
 ## Specifics About The Doubled Object
 The doubled object that you get back will inherit from the object you specify.  This means that the object will have all the variables and Inner Classes defined in the object.  The variables will have the default values defined in the script.  Inner Classes in the source script will retain all of their functionality.  They are not doubled in any way.  This is because the Inner Classes that end up in your double are actually from the script it inherits from.  You can create doubles of specific Inner Classes but the Inner Classes in a doubled script are not altered in any way.
 
-# Doubling Strategy (Experimental)
+# Doubling Strategy
 Remember all that stuff I said earlier about not being able to double Godot Built-Ins?  Forget about it...or forget half of it, maybe 45% of it.  
 
 You can spy and stub most of the Built-Ins in Godot if you enable the `FULL` Doubling Strategy. I've enabled this feature in my own game and it didn't crash (I currently have 75 test scripts and 3633 asserts).  As reassuring as that was I'm still not sure that it won't blow up for someone so it is off by default.
