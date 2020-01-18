@@ -20,6 +20,7 @@ GUT (Godot Unit Test) is a utility for writing tests for your Godot Engine game.
 * [Doubling](Doubles)
 * [Spies](Spies)
 * [Stubbing](Stubbing)
+* [Pre/Post Run Hooks](Hooks)
 
 # Experimental Features
 * [About Experimental features](About-Experimental)
