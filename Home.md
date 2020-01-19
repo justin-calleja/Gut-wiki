@@ -22,9 +22,6 @@ GUT (Godot Unit Test) is a utility for writing tests for your Godot Engine game.
 * [Stubbing](Stubbing)
 * [Pre/Post Run Hooks](Hooks)
 
-# Experimental Features
-* [About Experimental features](About-Experimental)
-
 # License
 Gut is provided under the MIT license.  [The license is distributed with Gut so it is in the `addons/gut` folder](https://github.com/bitwes/Gut/blob/master/addons/gut/LICENSE.md).
 
