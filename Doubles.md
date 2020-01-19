@@ -108,7 +108,6 @@ Sometimes an empty implementation isn't enough.  Sometimes you need specific val
 You can also [Spy](https://github.com/bitwes/Gut/wiki/Spies) on your double.  Once you have a double there are special `asserts` that can be used with it to verify that a method in the doubled object was called.  You can `assert` very specific calls too, such as with a specific list of parameters, or make sure it was called a certain number of times.
 
 # The Fine Details
-Doubling isn't perfect yet and there are some gotchas.
 
 ## Example of Script vs Built-in doubling
 Only methods that have been defined in the script you pass in OR methods that have been defined in parent scripts get the empty implementation in the double.  Methods defined in any built-in Godot class do not get overridden __unless__ the script (or parent script(s)) have them implemented.
