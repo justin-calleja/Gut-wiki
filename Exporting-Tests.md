@@ -2,7 +2,7 @@
 In Godot 3.1 an old 2.x feature was reintroduced that allows you to export your scripts as text.  Normally Godot will compile your tests and GUT cannot parse compiled tests.  If you change the setting below then GUT will be able to find and parse all your tests when the project is exported.
 
 Just change the following setting in your exports settings form `compiled` to `text`
-[[https://raw.githubusercontent.com/wiki/bitwes/Gut/export_as_text.png|alt=export_as_text]]
+[[https://raw.githubusercontent.com/wiki/bitwes/Gut/images/export_as_text.png|alt=export_as_text]]
 
 If you don't want to pass out your code in plain text or you are using Godot 3.0, then you can use the next section to export your tests.
 

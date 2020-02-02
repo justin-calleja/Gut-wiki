@@ -1,6 +1,6 @@
 
 
-[[https://raw.githubusercontent.com/wiki/bitwes/Gut/GutGui.png|alt=gutgui]]
+[[https://raw.githubusercontent.com/wiki/bitwes/Gut/images/GutGui.png|alt=gutgui]]
 
 1.  Output Box.
 1.  List of Test Scripts.  Inner Classes are indented under scripts.

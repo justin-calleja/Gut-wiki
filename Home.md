@@ -22,6 +22,10 @@ GUT (Godot Unit Test) is a utility for writing tests for your Godot Engine game.
 * [Stubbing](Stubbing)
 * [Pre/Post Run Hooks](Hooks)
 
+# Warnings
+There are a fair number of warnings that Godot will show related to GUT.  Some of the warnings are valid and are being cleaned up overtime.  Most of the warnings are not valid and sometimes relate to generated code.  As of 3.2 you can disable warnings for addons, and it recommended you do so.
+[[https://raw.githubusercontent.com/wiki/bitwes/Gut/images/exclude_addons.png|alt=exclude_addons]]
+
 # License
 Gut is provided under the MIT license.  [The license is distributed with Gut so it is in the `addons/gut` folder](https://github.com/bitwes/Gut/blob/master/addons/gut/LICENSE.md).
 
