@@ -28,6 +28,7 @@ All sample code listed for the methods can be found here in [test_readme_example
 [assert_between](#assert_between) |
 [assert_call_count](#assert_call_count) |
 [assert_called](#assert_called) |
+[assert_connected](#assert_connected) |
 [assert_does_not_have](#assert_does_not_have) |
 [assert_eq (equal)](#assert_eq) |
 [assert_exports](#assert_exports) |
@@ -45,6 +46,7 @@ All sample code listed for the methods can be found here in [test_readme_example
 [assert_lt (less than)](#assert_lt) |
 [assert_ne (not equal)](#assert_ne) |
 [assert_not_called](#assert_not_called) |
+[assert_not_connected](#assert_not_connected) |
 [assert_not_freed](#assert_not_freed) |
 [assert_not_null](#assert_not_null) |
 [assert_null](#assert_null) |
@@ -331,6 +333,36 @@ func test_assert_has_signal():
 	assert_has_signal(Node2D.new(), 'exit_tree')
 
 ```
+#### <a name="assert_connected"> assert_connected(signaler_obj, connect_to_obj, signal_name, method_name="")
+Asserts that `signaler_obj` is connected to `connect_to_obj` on signal `signal_name`.  The method that is connected is optional.  If `method_name` is supplied then this will pass only if the signal is connected to the  method.  If it is not provided then any connection to the signal will cause a pass.
+``` python
+class Signaler:
+	signal the_signal
+
+class Connector:
+	func connect_this():
+		pass	
+	func  other_method():
+		pass
+
+func test_assert_connected():
+	var signaler = Signaler.new()
+	var connector  = Connector.new()
+	signaler.connect('the_signal', connector, 'connect_this')
+
+	# Passing
+	assert_connected(signaler, connector, 'the_signal')
+	assert_connected(signaler, connector, 'the_signal', 'connect_this')
+	
+	# Failing
+	var foo = Connector.new()
+	assert_connected(signaler,  connector, 'the_signal', 'other_method')
+	assert_connected(signaler, connector, 'other_signal')
+	assert_connected(signaler, foo, 'the_signal')
+```
+#### <a name="assert_not_connected"> assert_not_connected(signaler_obj, connect_to_obj, signal_name, method_name="")
+The inverse of `assert_connected`.  
+
 #### <a name="watch_signals"> watch_signals(object)
 This must be called in order to make assertions based on signals being emitted.  __Right now, this only supports signals that are emitted with 9 or less parameters.__  This can be extended but nine seemed like enough for now.  The Godot documentation suggests that the limit is four but in my testing I found you can pass more.
 
