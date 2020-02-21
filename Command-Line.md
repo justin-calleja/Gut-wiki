@@ -43,7 +43,8 @@ Options
   -ginclude_subdirs         Include subdirectories of -gdir.
   -gdouble_strategy         Default strategy to use when doubling.  Valid values are [partial, full].  Default "partial"
   -gprint_gutconfig_sample  Print out json that can be used to make a gutconfig file then quit.
----------------------------------------------------------```
+---------------------------------------------------------
+```
 
 ### Examples
 
