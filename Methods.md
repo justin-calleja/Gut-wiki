@@ -1,4 +1,4 @@
-These are all the methods, bells, whistles and blinky lights you get when you extend the Gut Test Class (`extends "res://addons/gut/test.gd"`).  
+These are all the methods, bells, whistles and blinky lights you get when you extend the Gut Test Class (`extends "res://addons/gut/test.gd"`).
 
 All sample code listed for the methods can be found here in [test_readme_examples.gd](https://github.com/bitwes/Gut/blob/master/test/samples/test_readme_examples.gd)
 
@@ -28,6 +28,7 @@ All sample code listed for the methods can be found here in [test_readme_example
 [assert_between](#assert_between) |
 [assert_call_count](#assert_call_count) |
 [assert_called](#assert_called) |
+[assert_connected](#assert_connected) |
 [assert_does_not_have](#assert_does_not_have) |
 [assert_eq (equal)](#assert_eq) |
 [assert_exports](#assert_exports) |
@@ -45,8 +46,10 @@ All sample code listed for the methods can be found here in [test_readme_example
 [assert_lt (less than)](#assert_lt) |
 [assert_ne (not equal)](#assert_ne) |
 [assert_not_called](#assert_not_called) |
+[assert_not_connected](#assert_not_connected) |
 [assert_not_freed](#assert_not_freed) |
 [assert_not_null](#assert_not_null) |
+[assert_not_typeof]($assert_not_typeof)|
 [assert_null](#assert_null) |
 [assert_signal_emit_count](#assert_signal_emit_count) |
 [assert_signal_emitted_with_parameters](#assert_signal_emitted_with_parameters) |
@@ -56,6 +59,7 @@ All sample code listed for the methods can be found here in [test_readme_example
 [assert_string_ends_with](#assert_string_ends_with) |
 [assert_string_starts_with](#assert_string_starts_with) |
 [assert_true](#assert_true) |
+[assert_typeof]($assert_typeof) |
 |
 
 #### <a name="pending"> pending(text="")
@@ -331,6 +335,36 @@ func test_assert_has_signal():
 	assert_has_signal(Node2D.new(), 'exit_tree')
 
 ```
+#### <a name="assert_connected"> assert_connected(signaler_obj, connect_to_obj, signal_name, method_name="")
+Asserts that `signaler_obj` is connected to `connect_to_obj` on signal `signal_name`.  The method that is connected is optional.  If `method_name` is supplied then this will pass only if the signal is connected to the  method.  If it is not provided then any connection to the signal will cause a pass.
+``` python
+class Signaler:
+	signal the_signal
+
+class Connector:
+	func connect_this():
+		pass
+	func  other_method():
+		pass
+
+func test_assert_connected():
+	var signaler = Signaler.new()
+	var connector  = Connector.new()
+	signaler.connect('the_signal', connector, 'connect_this')
+
+	# Passing
+	assert_connected(signaler, connector, 'the_signal')
+	assert_connected(signaler, connector, 'the_signal', 'connect_this')
+
+	# Failing
+	var foo = Connector.new()
+	assert_connected(signaler,  connector, 'the_signal', 'other_method')
+	assert_connected(signaler, connector, 'other_signal')
+	assert_connected(signaler, foo, 'the_signal')
+```
+#### <a name="assert_not_connected"> assert_not_connected(signaler_obj, connect_to_obj, signal_name, method_name="")
+The inverse of `assert_connected`.
+
 #### <a name="watch_signals"> watch_signals(object)
 This must be called in order to make assertions based on signals being emitted.  __Right now, this only supports signals that are emitted with 9 or less parameters.__  This can be extended but nine seemed like enough for now.  The Godot documentation suggests that the limit is four but in my testing I found you can pass more.
 
@@ -506,7 +540,7 @@ func test_assert_file_exists():
 
 	gut.p('-- failing --')
 	assert_file_exists('user://file_does_not.exist') # FAIL
-	assert_file_exists('res://some_dir/another_dir/file_does_not.exist') # FAIL  
+	assert_file_exists('res://some_dir/another_dir/file_does_not.exist') # FAIL
 ```
 #### <a name="assert_file_does_not_exist"> assert_file_does_not_exist(file_path)
 asserts a file does not exist at the specified path
@@ -583,6 +617,23 @@ func test_assert_is():
 	assert_is([], Node)
 ```
 
+#### <a name="assert_typeof">assert_typeof(object, type, text='')
+Asserts that `object` is the the `type` specified.  `type` should be one of the Godot `TYPE_` constants.
+``` python
+func test_assert_typeof():
+	gut.p('-- passing --')
+	var c = Color(1, 1, 1, 1)
+	gr.test.assert_typeof(c, TYPE_COLOR)
+	assert_pass(gr.test)
+
+	gut.p('-- failing --')
+	gr.test.assert_typeof('some string', TYPE_INT)
+	assert_fail(gr.test)
+```
+
+#### <a name="assert_not_typeof">assert_not_typeof(object, type, text='')
+The inverse of `assert_typeof`
+
 #### <a name="assert_freed">assert_freed(obj, text)
 Asserts that the passed in object has been freed.  This assertion requires that  you pass in some text in the form of a title since, if the object is freed, we won't have anything to convert to a string to put in the output statement.
 
@@ -632,7 +683,7 @@ func test_assert_exports():
 ```
 
 #### <a name="assert_called">assert_called(inst, method_name, parameters=null)
-This assertion is is one of the ways Gut implements Spies.  It requires that you pass it an instance of a "doubled" object.  An instance created with `double` will record when a method it has is called.  You can then make assertions based on this.  
+This assertion is is one of the ways Gut implements Spies.  It requires that you pass it an instance of a "doubled" object.  An instance created with `double` will record when a method it has is called.  You can then make assertions based on this.
 
 This assert will check the object to see if a call to the specified method (optionally with parameters) was called over the course of the test.  If it finds a match this test will `pass`, if not it will `fail`.
 
@@ -689,7 +740,7 @@ func test_assert_called():
 This is the inverse of `assert_called` and works the same way except, you know, inversely.  Matches are found based on parameters in the same fashion.  If a matching call is found then this assert will `fail`, if not it will `pass`.
 
 #### <a name="assert_call_count">assert_call_count(inst, method_name, expected_count, parameters=null)
-This assertion is is one of the ways Gut implements Spies.  It requires that you pass it an instance of a "doubled" object.  An instance created with `double` will record when a method it has is called.  You can then make assertions based on this.  
+This assertion is is one of the ways Gut implements Spies.  It requires that you pass it an instance of a "doubled" object.  An instance created with `double` will record when a method it has is called.  You can then make assertions based on this.
 
 This asserts that a method on a doubled instance has been called a number of times.  If you do not specify any parameters then all calls to the method will be counted.  If you specify parameters, then only those calls that were passed matching values will be counted.
 
@@ -823,7 +874,7 @@ func test_assert_accessors():
 
   gut.p('-- failing --')
   # 1 FAILING, 3 PASSING
-  assert_accessors(some_class, 'count', 'not_default', 20)  
+  assert_accessors(some_class, 'count', 'not_default', 20)
   # 2 FAILING, 2 PASSING
   assert_accessors(some_class, 'nothing', 'hello', 22)
   # 2 FAILING
@@ -943,7 +994,7 @@ func test_can_use_loaded_scripts_to_ignore_statics():
   var HasStatics = load('res://scripts/has_statics.gd')
   ignore_method_when_doubling(HasStatics, 'this_is_static')
   var d_has_statics = double(HasStatics).new()
-  assert_not_null(d_has_statics)  
+  assert_not_null(d_has_statics)
 
 func test_cannot_spy_or_stub_ignored_methods():
   var HasStatics = load('res://scripts/has_statics.gd')
@@ -964,7 +1015,7 @@ func test_cannot_spy_or_stub_ignored_methods():
 #### <a name="replace_node"> replace_node(base_node, path_or_node, with_this)
 Replaces the child node of base_node with `with_this`.  You can pass a path to a node or a child node of base_node.  `with_this` will get all groups that the replaced node had.  `with_this` also gets the same "name" that the replaced node had so that any references to it via `$` will work.  The replaced node is freed via `queue_free`.
 
-This is useful when you want to double a node in another node.  Your code might be referencing the node via a call to `get_node` or might be using the `$` syntax to get to the object.  `replace_node` allows you to replace a node in another node and retain all of your `get_node` and `$` references.  
+This is useful when you want to double a node in another node.  Your code might be referencing the node via a call to `get_node` or might be using the `$` syntax to get to the object.  `replace_node` allows you to replace a node in another node and retain all of your `get_node` and `$` references.
 
 This will only work for references to the node are made __after__ `replace_node` has been called.  If your object has a local variable that points to the node that gets replaced and:
 * it was set on `_init`

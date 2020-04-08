@@ -16,6 +16,8 @@ The following settings are accessible in the Editor under "Script Variables"
 * <b>Inner Class Name</b>:  Only run Inner Classes that have names that contain the specified string.  
 * <b>Include Subdirectories</b>:  Include subdirectories when looking for tests.  This applies to the 6 "Directory" settings.
 * <b>Directory(1-6)</b>:  The path to the directories where your test scripts are located.  If you need more than six directories you can use the `add_directory` method to add more.
+* <b>Color Output</b> Unix style escape codes can be used for some color formatting of the ouput to the console.  This doesn't work with the Godot console so it is disabled by default in the editor but is enabled by default when using the command line tool.
+
 
 ## <a name="gut_methods"> Methods for Configuring the Execution of Tests
 These methods would be used inside the scene you created at `res://test/tests.tcn`.  These methods can be called against the Gut node you created.  Most of these are not necessary anymore since you can configure Gut in the editor but they are here if you want to use them.  Simply put `get_node('Gut').` in front of any of them.  
@@ -64,6 +66,7 @@ The level of detail that is printed to the screen can be changed using the slide
 * LOG_LEVEL_FAIL_ONLY (0)
 * LOG_LEVEL_TEST_AND_FAILURES (1)
 * LOG_LEVEL_ALL_ASSERTS (2)
+
 
 ##  <a name="printing"> Printing info
 The `gut.p` method allows you to print information out indented under the test output.  It has an optional 2nd parameter that sets which log level to display it at.  Use one of the constants in the section above to set it.  The default is `LOG_LEVEL_FAIL_ONLY` which means the output will always be visible.  
