@@ -60,7 +60,7 @@ All sample code listed for the methods can be found here in [test_readme_example
 [assert_string_starts_with](#assert_string_starts_with) |
 [assert_true](#assert_true) |
 [assert_typeof]($assert_typeof) |
-|
+
 
 #### <a name="pending"> pending(text="")
 flag a test as pending, the optional message is printed in the GUI
