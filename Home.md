@@ -10,7 +10,7 @@ GUT (Godot Unit Test) is a utility for writing tests for your Godot Engine game.
 * [Install](Install)
 * [Gut Settings and Methods](Gut-Settings-And-Methods)
 * [Creating Tests](Creating-Tests)
-* [Methods](Methods)
+* [Methods](Asserts-and-Methods)
 
 # Advanced Testing
 * [Using Gut at the command line](Command-Line)
