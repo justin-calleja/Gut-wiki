@@ -1,6 +1,6 @@
 ##  <a name="yielding"> Yielding during a test
 
-I'm not going to try and explain yielding here.  It can be a bit confusing and [Godot does a pretty good job of it already](http://docs.godotengine.org/en/latest/reference/gdscript.html#coroutines).  Gut has support for yielding though, so you can yield at anytime in your test.  
+I'm not going to try and explain yielding here.  It can be a bit confusing and [Godot does a pretty good job of it alreadyhttps://docs.godotengine.org/en/latest/getting_started/scripting/gdscript/gdscript_basics.html#coroutines-with-yield).  Gut has support for yielding though, so you can yield at anytime in your test.  
 
 When might you want to yield?  Yielding is very handy when you want to wait for a signal to occur instead of running for a finite amount of time.  For example, you could have your test yield until your character gets hit by something (`yield(my_char, 'hit')`).  An added bonus of this approach is that you can watch everything happen.  In your test you create your character, the object to hit it, and then watch the interaction play out.
 
